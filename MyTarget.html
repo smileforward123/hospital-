@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+   
+	<meta charset="UTF-8">
+	<title></title>
+  <meta name="screen-orientation" content="portrait">
+  <meta name="x5-orientation" content="portrait">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/myTarget.css">
+    <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+     <link rel="stylesheet" type="text/css" href="css/public.css">
+    <link rel="stylesheet" href="css/mobiscroll/css/mobiscroll.custom-3.0.0-beta4.min.css" type="text/css" />
+	
+	<script src="js/jquery-2.2.1.js"></script>
+  <script type="text/javascript" src="js/jquerysession.js"></script>
+	<script type="text/javascript" src="css/layer/layer.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+    <script src="js/mobiscroll.custom-3.0.0-beta4.min.js"></script>
+	<script type="text/javascript">
+		 document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+	</script>
+ <style>
+
+     .layui-layer-content{
+          text-align:center;
+          line-height:5rem;
+          font-size:1rem;
+          font-family:"微软雅黑";
+     }
+ </style>
+</head>
+<body>
+	      <div class="wrap">
+              
+             <div class="upper_part">
+                <div class="nav">  
+                   <div class="nav_title">
+                        <a href="homePage_Nav.html" class="back">
+                              <img src="images/app_03.jpg"/>
+                        </a>
+                        <div class="title_name">我的目标</div>
+                        <a href="basicInfor.html" class="user_head">
+                              <img src="images/app_06.jpg"/>
+                        </a>
+                        <div style="clear:both"></div>
+
+                   </div>
+                 </div>  
+                 <!--  两个图片标签 防止以后 增加功能 -->
+               <div class="user_photo">
+                          <!--  相框 -->
+                     <img src="images/ap11p_03.png" class="photo_border"/>
+                           <!--  用户图像 -->
+                     <img src="images/ap11p_03.png" class="photo_core"/>
+               </div>
+               
+              
+                
+             </div> 
+              
+              <div class="options">
+
+                    <div class="item">
+                        <div class="monthly">期望年收入</div> 
+                        <input class="amount" id="yearsAmount"  type="text"/>
+                        <div class="unit">万</div>
+                        <div style="clear:both"></div> 
+                    </div>
+
+                    <div class="item">
+                        <div class="monthly">期望月收入</div> 
+                        <input class="amount" id="monthAmount" value="" readonly="true" type="text"/>
+                        <div class="unit">万</div>
+                        <div style="clear:both"></div> 
+                    </div>
+                    
+                    <div class="item">
+                        <div class="monthly">产品利润率</div> 
+                        <input class="amount" id="profitRate" value=""   type="text"/>
+                        <div class="unit">%</div>
+                        <div style="clear:both"></div> 
+                    </div>
+
+                    <div class="item">
+                        <div class="monthly">月度毛利</div> 
+                        <input class="amount" id="saleGoal" value=""  type="text"/>
+                        <div class="unit">万</div>
+                        <div style="clear:both"></div> 
+                    </div>
+                   
+                    <div class="toSubmit" id="toSubmit">确认并提交</div>
+
+              </div>
+
+               
+
+
+               <div class="bottom_menu">
+                     <a href="homePage_Nav.html">
+                           <img src="images/app_35.jpg"/>
+                           <br/>首页
+
+                     </a>
+                   <!--   <a href="javascript:void(0)">
+                         <img src="images/app_37.jpg"/>
+                         <br/>分类 
+                   </a>
+                   <a href="javascript:void(0)">
+                         <img src="images/app_32.jpg"/>
+                         <br/>关注
+                   </a> -->
+                     <a href="basicInfor.html">
+                          <img src="images/app_29.jpg"/> 
+                          <br/>我
+                     </a>
+                     <div style="clear:both"></div>
+               </div>
+
+	      </div>
+  	
+	
+</body>
+</html>
+
+<script>
+      $(document).ready(function(){
+          $(".title_name").css("left",($(".nav_title").width()-$(".title_name").width())/2);
+
+
+      })
+
+     
+
+      
+            var instance=mobiscroll.select('#demo', {
+                        theme: 'mobiscroll',    
+                        lang: 'zh',         
+                        display: 'bottom',  
+                        minWidth: 200  ,
+            });
+
+
+     
+      
+
+  
+
+         var instance1=mobiscroll.select('#demo1', {
+                        theme: 'mobiscroll',    
+                        lang: 'zh',         
+                        display: 'bottom',  
+                        minWidth: 200  ,
+            });
+   
+         //月收入计算
+        $("#yearsAmount").keyup(function(){
+            if(!reg2.test($("#yearsAmount").val())){
+               $("#monthAmount").val(0)
+               return
+            }
+            $("#monthAmount").val(($(this).val()/12).toFixed(2));
+
+        })
+
+         $("#profitRate").keyup(function(){
+
+              $("#saleGoal").val( ($("#monthAmount").val()*($(this).val()/100)).toFixed(2));
+
+         })
+         
+
+
+
+         var str1="一经提交不可修改";
+           var reg2=/^(\d*\.)?\d+$/;
+      $("#toSubmit").click(function(){
+              
+
+             if(!reg2.test($("#yearsAmount").val()) || !reg2.test($("#profitRate").val()) || !reg2.test($("#saleGoal").val())){
+                                
+                          layer.msg('请输入数字');
+                                   
+                                    return
+
+               }else if($("#yearsAmount").val()==""){
+                          layer.msg('请输入 期望年收入');
+                                   
+                                    return
+               }else if($("#profitRate").val()==""){
+                           layer.msg('请输入 产品利润率');
+                                   
+                                    return
+
+               }else if($("#saleGoal").val()==""){
+
+                
+                  layer.msg('请输入 月度毛利');
+                                   
+                                    return
+               }
+               
+              layer.open({
+                  type: 1,
+                  title :'提示',
+                  area: ['14.8rem', '10rem'],
+                  closeBtn: 0,
+                  content: str1,
+                  btn: ['取消', '确定'],btn2:function(){
+                   
+                       
+                       
+
+                          Datas({
+                                  url:"mobile/deptmanager_add.htm",
+                            datas:{
+                                 'userId':$.session.get("userid"),
+                                 'salariesYear':$("#yearsAmount").val(),
+                                 'taxes':$("#profitRate").val(),
+                                 'saleroom':$("#saleGoal").val() 
+                          },
+                               success:function(data){
+                               
+                                 if(!data.status){
+                                      layer.msg(data.message);
+                                   }else {
+                                     $(".item input").attr("readonly","true");
+                                      $("#toSubmit").hide();
+                                         layer.msg(data.message);
+                                           
+                                
+                                     }
+
+                            },
+                                error:function(){
+                                      layer.msg('服务器异常，请联系管理员');
+                               }
+
+                        })
+                     
+                  }
+                  
+                })
+                 $(".layui-layer").css({
+                "font-size":"0.35rem"
+                })
+                $(".layui-layer-btn a").css({
+                    "font-size":"0.35rem"
+                })
+          
+
+           
+           
+
+      })
+
+      $(document).ready(function(){
+
+                 Datas({
+                  url:"mobile/deptmanager_info.htm",
+                  datas:{
+                          'userId':$.session.get("userid")
+                         
+                  },
+                  success:function(data){
+                         
+                          if(data.status) {
+                               
+                             if(data.data.salariesYear!=""){
+                                     $("#yearsAmount").val(data.data.salariesYear) ;
+                                       $("#profitRate").val(data.data.taxes)   ;
+                                        $("#saleGoal").val(data.data.saleroom);
+                                          $("#monthAmount").val(data.data.salariesMonth);
+                                           $(".item input").attr("readonly","true");
+                                             $("#toSubmit").hide();
+                                              
+                             }
+                           
+                          }
+
+                  },
+                  error:function(){
+                     
+                  }
+
+                })
+
+      })
+
+</script>

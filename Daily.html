@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+	
+  <meta charset="UTF-8">
+	<meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+  <title></title>
+ 
+  <metaname content="landscape">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/Daily.css">
+    <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+      <link href="css/mobiscroll_date.css" rel="stylesheet" />
+   <link href="css/mobiscroll.css" rel="stylesheet" />
+      
+	 
+   <script src="js/jquery-2.2.1.js"></script> 
+    <script type="text/javascript" src="js/jquerysession.js"></script> 
+	<script type="text/javascript" src="css/layer/layer.js"></script>
+  
+   <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script> 
+    <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		 document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+	</script>
+   <style>
+
+    
+  
+
+   @media  (orientation: landscape){
+               .bottom_menu{
+    
+          width:100%;
+        height:1rem;
+        background:#f0eeef;
+        text-align:center;
+        line-height:1rem;
+        position:fixed;
+        bottom:0;
+        left:0;
+    
+    };
+
+   }
+   
+
+
+   @media  (orientation: landscape){
+         .bottom_menu a{
+       display:inline-block;
+       width:50%;
+       height:1rem;
+       float:left;
+       text-align:center;
+       font-size:0.5rem;
+       line-height:1rem;
+       padding-top:0.05rem;
+       color:#1e83d1;
+    
+    }
+
+   }
+
+
+    @media  (orientation: landscape){  .nav_title{
+     width:100%;
+     height:1rem;
+     margin:0 auto;
+     position:relative;
+     text-align:center;
+     line-height:1rem;
+     z-index:1000;
+
+}
+}
+
+
+
+     @media  (orientation: landscape){
+
+   .nav{
+  width:100%;
+  background:#1e81d2;
+  height:1rem;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10000;
+  text-align:center;
+  font-size:0.8rem;
+  padding-top:0.2rem;
+}
+   }
+
+
+   @media  (orientation: landscape){
+          .theData{margin-top:1.3rem} 
+   }
+
+   body{
+       padding-bottom:2rem;
+   }
+  .more{
+
+          display:inline-block;
+          height:0.9rem;
+          margin:0 auto;
+          width:100%;
+          text-align:center;
+          font-size:1rem;
+  }
+ .nomore{
+     width:0.9rem;height:0.9rem;
+     font-size:0.9rem;
+ }
+ .wrap{
+     padding-bottom:2rem;
+ }
+ .theData table td{
+      height:auto;
+      position:relative;
+ }
+
+ .theData table td .subTable{
+           
+          width:100%;
+          border-collapse:collapse;
+       
+
+ }
+ .theData table td .subTable td{
+
+
+       border-bottom:1px solid black;
+
+ }
+#isloading img{
+
+	   width:0.6rem;
+	   height:0.6rem;
+}
+#isloading{
+      height:1rem;line-height:1rem;
+      font-size:0.7rem; 
+      display:none;
+}
+
+
+.searchNav{
+            background: #fafafa;
+            height: 2rem;
+            line-height: 2rem;
+            width: 100%;
+            text-align: center;
+           /*  position: fixed;
+           margin-top: 1.7rem;
+           z-index: 100; */
+           padding-bottom:0.5rem;
+}
+.chooseDate{
+    width: 5rem;
+    height: 1.6rem;
+    font-size: 0.9rem;
+    background: url(images/dateBtn.jpg) no-repeat center;
+    background-size: contain;
+    border: none;
+    outline: none;
+    text-indent: 0.3rem;
+  
+    box-shadow: 3px 3px 6px #d2d2d2;
+    margin-top: 0.4rem;
+    margin-right: 0.2rem;
+}
+
+
+
+
+   .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+
+               @media  (orientation: portrait){
+
+                       #header{
+
+                              text-align:center;
+                }
+            }
+
+ .dwrc table  tr td:nth-child(2){
+
+             display:none;
+     } 
+
+          
+   </style>
+ 
+ 
+ 
+</head>
+<body>
+	      <div class="wrap">
+              
+             <div class="upper_part">
+                <div class="nav">  
+                   <div class="nav_title nav">
+                        <a href="homePage_Nav.html" class="back">
+                              <img src="images/app_03.jpg"/>
+                        </a>
+                        日记帐
+                        <a href="basicInfor.html" class="user_head">
+                              <img src="images/app_06.jpg"/>
+                        </a>
+                        <div style="clear:both"></div>
+
+                   </div>
+                     <!--  onchange="chooseTheYear($(this))" -->
+                    <div class="searchNav">
+                          <input type="text" value="年" onchange="chooseTheYear($(this))"  class="chooseDate" id="chooseYear"/>
+                          <select style="height:1.6rem"  onchange="chooseTheMonth($(this))" class="chooseDate" id="chooseMoth">
+                                  
+                                  <option value="月">月</option>
+                                  <option value="01">01</option>
+                                  <option value="02">02</option>
+                                  <option value="03">03</option>
+                                  <option value="04">04</option>
+                                  <option value="05">05</option>
+                                  <option value="06">06</option>
+                                  <option value="07">07</option>
+                                  <option value="08">08</option>
+                                  <option value="09">09</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                 
+                         </select> 
+                         
+                    </div>
+                 </div>  
+               
+               
+              
+                
+             </div> 
+              <div class="theData">
+
+
+                     
+                     <table cellspacing="0" id="items" style="position:relative">
+                          <tr>
+                             <th width="5%">序号</th>
+                             <th width="10%">日期</th>
+                             <th width="10%">摘要</th>
+                             <th width="10%">分类</th>
+                             <th width="10%">经手人</th>
+                             <th width="10%">收入</th>
+                             <th width="10%">支出</th>
+                             <th width="1%"></th>
+                             <th width="19%">分摊部门</th>
+                             <th width="14%">经手部门</th>
+                          </tr>
+
+                        <!--    <tr>
+                            <td>2</td>
+                            <td>2016-12-11</td>
+                            <td>房租</td>
+                            <td>办公费</td>
+                            <td>张三</td>
+                            <td>8,000</td>
+                            <td></td>
+                            <td></td>
+                            <td>4000</td>
+                            <td>5000</td>
+                        
+                                                  </tr>
+                        
+                                                  <tr>
+                            <td colspan="5" style="text-align:left;text-indent:0.3rem;">合计</td>
+                           
+                            <td  id="orientation">500</td>
+                            <td>400</td>
+                            <td>300</td>
+                            <td>200</td>
+                            <td>100</td>
+                        
+                                                  </tr> -->
+                     </table>
+              </div>
+           
+              <span class='more' style='height:0.9rem;display:none;font-size:0.7rem;'>暂无更多数据...</span>
+              <span class='themore' style="display:none;text-align:center;font-size:0.7rem;">加载更多....</span> 
+              <p id='isloading' style="text-align:center;">
+                   <img src="images/isloading.gif" />加载中....
+              </p> 
+
+
+               <div class="bottom_menu">
+                     <a href="homePage_Nav.html">
+                           <img src="images/app_35.jpg"/>
+                           <br/>首页
+
+                     </a>
+                  <!--    <a href="javascript:void(0)">
+                        <img src="images/app_37.jpg"/>
+                        <br/>分类 
+                  </a>
+                  <a href="javascript:void(0)">
+                        <img src="images/app_32.jpg"/>
+                        <br/>关注
+                  </a> -->
+                     <a href="basicInfor.html">
+                          <img src="images/app_29.jpg"/> 
+                          <br/>我
+                     </a>
+                     <div style="clear:both"></div>
+               </div>
+
+	      </div>
+  	
+	
+</body>
+</html>
+
+<script>     var years='';
+             var months='';
+             var opteration=false;
+             var items= "";       
+    
+             var pagess=1;
+             var serialNo=0;  
+             var incoming=0;
+             var expense=0;
+             var thebalance=0;
+             var empty='';
+             var serialNo2=0;
+             turnPage();
+            
+
+              $(window).scroll(function(){
+
+                        
+
+
+                         var scrollTop=$(this).scrollTop();
+                         var scrollHeight = $(document).height();
+                         var windowHeight = $(this).height();
+
+                    if(scrollTop+windowHeight==scrollHeight){
+   
+                                $("#isloading").show();
+                                   $(".themore").css("display","none");
+                                      $(".more").css("display","none"); 
+                                         setTimeout(
+
+                                           function(){
+                                           	  if($.session.get("num")==pagess){
+                                                 $.session.get("num")==pagess;
+                                                   $("#isloading").hide();
+                                                     $(".more").css("display","block");
+                                                 return;
+                                            }
+                                           	  pagess +=1 ;
+                                               turnPage();
+
+                                           },1500
+
+                                         	)
+                          
+                            
+                         
+                    }
+
+               })
+
+         
+
+
+
+
+
+           function turnPage(){
+                     
+                      
+
+
+
+                      
+                       Datas({
+                  url:"mobile/logsList.htm",
+                 
+                  datas:{
+                    "userId": $.session.get("userid"),
+                    "page":pagess,
+                    "rows":'20',
+                    "year":years,
+                    "month":months
+                 
+
+                    
+                  },
+                  success:function(data){
+                           
+                        
+                          if(data.status){
+                           
+                             
+                              $.session.set("num",data.data.pages);
+                              
+                              if(!data.data.list){
+                                   $(".themore").css("display","none");
+                                      $(".more").css("display","block"); 
+                                   
+                                        
+                                   return;
+
+                              }
+
+                              if(data.data.list.length){
+                                  
+
+                                     
+                                  
+                                    for(i=0;i<data.data.list.length;i++){
+                                         serialNo+=1;
+                                           if(data.data.list[i].balance==undefined){
+                                                     data.data.list[i].balance=0; 
+
+                                           };
+                                               if(data.data.list[i].outlay==undefined){
+                                                     data.data.list[i].outlay=0;
+                                               };
+                                                 if(data.data.list[i].digest==undefined){
+
+                                                      data.data.list[i].digest='';
+                                                 };
+                                                    if(data.data.list[i].cateName==undefined){
+
+                                                        data.data.list[i].cateName='';
+                                                    };
+
+                                                      if(data.data.list[i].userName==undefined){
+
+                                                              data.data.list[i].userName='';
+
+                                                      }
+
+                                                        if(data.data.list[i].shares.length!=0){
+                                                                  empty='';
+                                                                 for(var b=0;b<data.data.list[i].shares.length;b++){
+                                                                    /* empty +=data.data.list[i].shares[b].amont;*/
+                                                                     
+                                                                      empty +='<tr>'+
+                                                                                '<td width="50%">'+data.data.list[i].shares[b].deptName+'</td>'+
+                                                                                '<td>'+data.data.list[i].shares[b].amont+'</td>'+
+                                                                              '</tr>';
+                                                                        
+                                                                      
+                                                                 }
+                                                                  
+                                                             
+
+                                                        }
+                                                        if(data.data.list[i].shares.length==0){
+                                                                   
+                                                                 empty='';
+                                                        } 
+                                                       
+                                                    
+
+                                                              items += '<tr class="rows">'+
+                                                                  ' <td class="tdh">'+serialNo+'</td>'+
+                                                                  ' <td>'+data.data.list[i].logsDate.substring(0,11)+'</td>'+
+                                                                '   <td>'+data.data.list[i].digest+'</td>'+
+                                                                  ' <td>'+data.data.list[i].cateName+'</td>'+
+                                                                  ' <td>'+data.data.list[i].operator+'</td>'+
+                                                                 '  <td>'+regix(data.data.list[i].income)+'</td>'+
+                                                                   '<td>'+regix(data.data.list[i].outlay)+'</td>'+
+                                                                   '<td></td>'+
+                                                                  ' <td>'+
+                                                                    '<table border="1"  class="subTable" cellspacing="0">'+
+                                                                         empty+   
+                                                                    '</table>'+
+                                                                     '</td>'+
+                                                                   '<td>'+data.data.list[i].deptName+'</td>'+
+
+                                                             ' </tr>  '   
+
+                                                     
+                                                      
+
+                    										     
+
+                                                  incoming = data.data.sumIncom;
+                                                   expense = data.data.sumOutlay;
+                                                     thebalance = data.data.sumBalance;
+                                    };
+                                            total= '<tr id="total">'+
+                                                     '<td  colspan="5" style="text-align:left;text-indent:0.3rem;">合计</td>'+
+                                                    
+                                                     '<td style="padding-left:0.2rem;padding-right:0.2rem;" id="orientation">总收入<br/>'+regix(incoming)+'</td>'+
+                                                    ' <td style="padding-left:0.2rem;padding-right:0.2rem;">总支出<br/>'+regix(expense)+'</td>'+
+                                                     '<td style="padding-left:0.2rem;padding-right:0.2rem;"></td>'+
+                                                    ' <td></td>'+
+                                                    ' <td></td>'+
+                                                    
+                                                '</tr>';
+                                         
+                                     
+                                              $("#items td").remove();
+                                               $("#items").append(items) ; 
+                                                $("#items").append(total);
+                                                  $("#isloading").hide();
+                                          
+                                    
+                                            }else if(!data.data.total){
+                                                     $("#items ").remove();
+                                                     
+                                                       $(".more").css("display","block");
+                                            };
+
+                                             if(data.data.nextPage){
+                                                      
+                                                 $(".themore").css("display","block");
+                                                            
+                                            }else if(data.data.nextPage==0){
+
+                                                     $(".themore").css("display","none");
+                                                        $(".more").css("display","block");
+                                            };
+                                         
+                                        
+                                      
+                               
+                              
+                                
+                           }
+
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+
+           }
+      
+           
+
+
+
+           function regix(str){
+				    var num = parseFloat(str).toFixed(3);//这里因为我需要两位小数所以做一个限制，你们看情况做小数位的限制
+				    var s = num.substring(0, (num.length-1));//只取小数位2位
+				     
+				    return s && s.toString().replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+				        return $1 + ",";
+				    });;
+        }
+     
+
+
+       
+
+
+
+      
+       function chooseTheMonth(s){
+                
+                  serialNo=0;
+                  total='';
+                  items='';
+                  months=s.val(); 
+                 $("#items td").remove();
+                 pagess=1;
+
+               if($("#chooseYear").val()=='年'){
+                      layer.msg('你还没有选择年份');    
+                        $(".themore").css("display","none");
+                           $(".more").css("display","block");
+                             opteration=false; 
+                    
+                      return
+               }
+
+               turnPage();
+
+       }  
+
+
+       function chooseTheYear(vs){
+              
+                serialNo=0;
+               total='';
+               items='';
+               $("#items td").remove();
+               pagess=1;
+                var sval=vs.val().split('-');
+                 vs.val(sval[0]);
+            if($("#chooseMoth").val()=='月'){
+                 years=vs.val();
+                 months=''; 
+                
+            }else if($("#chooseMoth").val()!='月'){
+
+                  years=vs.val();
+                  months=$("#chooseMoth").val(); 
+            }
+             
+            turnPage();
+
+       }
+
+
+    $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy-mm', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分',
+
+          };
+                
+                $("#chooseYear").mobiscroll(opt_data);
+                
+                 
+                
+        });
+       
+</script>

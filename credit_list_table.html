@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta name="screen-orientation" content="portrait">
+          <meta name="x5-orientation" content="portrait">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <title></title>
+        <link href="css/clear.css" rel="stylesheet">
+        <link href="css/credit_listtable.css" rel="stylesheet"/>
+        <link href="css/mobiscroll.css" rel="stylesheet" />
+        <link href="css/mobiscroll_date.css" rel="stylesheet" />
+         <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+    
+    </head>
+    <script>
+         document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+    </script>
+    <style>
+            .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+
+           .dwwl1{
+
+           	   display:none;
+           }
+    </style>
+    <script src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script src="js/zepto.min.js"></script>
+       <script type="text/javascript" src="css/layer/layer.js"></script>
+    <script src="js/common.js"></script>
+
+    <script src="js/echarts.js"></script>
+   
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+    <body>
+        <header id="header" class="clear">
+            <a class="back" href="homePage_Nav.html"> <img src="images/app_03.jpg"/></a>
+            <h3 class="pageTitle">
+                
+            </h3>
+            <a class="logo" href="basicInfor.html"><img src="images/app_06.jpg"></a>
+
+        </header>
+        <div class="scroll">
+           <div class="searchNav">
+                <input type="text" value="" id="chooseDate"/>
+               <input type="button" name="" onclick="getData()" value="查询" id="searchBtn">
+           </div>
+           <div id="table" style="height:15rem;">
+               
+           </div>
+           
+
+            <div class="departTop">
+                 <div class="heads">
+                     <img src="images/bars.jpg"/>
+                     <span>部门(累计)排名</span>
+                 </div>
+                 <table width="100%" id="topss" cellspacing="0">
+                     <!-- <tr>
+                         <td width="10%">01、</td>
+                         <td align="right">
+                              <span>量子部</span>
+                             <span class="sameColor">/</span>
+                             <span class="sameColor">90分</span>
+                         </td>
+                     </tr> -->
+
+                    
+
+                 </table>
+
+
+           </div>
+        </div>
+         <script>
+        $(document).ready(function(){
+
+            var titles='';  
+                  var str='';
+                  var serialNo=0;
+                  var newDate=new Date();
+                     var fullyear=$.session.get('credit_DATE').split('-');
+                      
+                    
+                    $("#chooseDate").val(fullyear[0]);     
+                  getData();
+
+
+        })
+      
+     
+        var scores=[];
+      function getData(){
+              
+             if(scores.length){
+                 scores=[];
+
+             }
+          Datas({
+                  url:"mobile/reportDetails.htm",
+                  datas:{
+                   'year':$("#chooseDate").val(),
+                   'deptId':$.session.get('curDepId')
+
+                 
+
+                    
+                  },
+                  success:function(data){
+                          console.log(data);
+                          if(data.status){
+                              $(".pageTitle").text($.session.get('curDepName'));
+                           
+                            var DA=data.data;
+                            $(".heads span").text($.session.get('curDepName')+' '+$("#chooseDate").val()+'年成绩列表');
+                            if(data.data){
+                                  str='';
+                                  serialNo=0;
+                                for(var i=0;i<data.data.length;i++){
+                                  
+                                     serialNo +=1;
+
+
+                                      str += '<tr>'+
+                                                 '<td width="18%">'+serialNo+'月、</td>'+
+                                                 '<td align="right">'+
+                                                      '<span>'+data.data[i].deptName+'</span>'+
+                                                    ' <span class="sameColor">/</span>'+
+                                                    ' <span class="sameColor">'+data.data[i].score+'分</span>'+
+                                                 '</td>'+
+                                            ' </tr>';
+
+
+
+                                         
+                                }
+                                 $("#topss tr").remove();
+                                $("#topss").append(str);
+                            }
+                             
+
+
+
+
+                            if(!data.data){
+                                layer.msg($.session.get('curDepName')+' '+$("#chooseDate").val()+'年无数据');
+                                 $("#topss tr").remove();
+                                 scores.push(0,0,0,0,0,0,0,0,0,0,0,0);
+                            }else if(data.data.length==1){
+                                 
+                                  
+                                   
+
+                              scores.push(DA[0].score,0,0,0,0,0,0,0,0,0,0,0);
+                               
+                               
+                            }else if(data.data.length==2){
+
+
+                                 
+                                   
+
+                                    scores.push(DA[0].score,DA[1].score,0,0,0,0,0,0,0,0,0,0);
+                               
+
+                            }else if(data.data.length==3){
+
+                                  
+                                   
+
+                                    scores.push(DA[0].score,DA[1].score,DA[2].score,0,0,0,0,0,0,0,0,0);
+                               
+
+
+
+                            }else if(data.data.length==4){
+                                 
+                             
+                                   
+
+                                    scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,0,0,0,0,0,0,0,0);
+                                   
+
+                            }else if(data.data.length==5){
+                                  
+                                   
+                                   
+
+                                    scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,0,0,0,0,0,0,0);
+                                
+                            }else if(data.data.length==6){
+
+                                   
+                                   
+
+                               scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,0,0,0,0,0,0);
+                                
+                            }else if(data.data.length==7){
+                              scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,0,0,0,0,0);   
+
+                            }else if(data.data.length==8){
+                              scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,DA[7].score,0,0,0,0);
+
+                            }else if(data.data.length==9){
+
+                               scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,DA[7].score,DA[8].score,0,0,0);
+
+                            }else if(data.data.length==10){
+            
+
+                                  scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,DA[7].score,DA[8].score,DA[9].score,0,0);
+
+                            }else if(data.data.length==11){
+
+                                   scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,DA[7].score,DA[8].score,DA[9].score,DA[10].score,0);  
+                            }else if(data.data.length==12){
+
+                                   scores.push(DA[0].score,DA[1].score,DA[2].score,DA[3].score,DA[4].score,DA[5].score,DA[6].score,DA[7].score,DA[8].score,DA[9].score,DA[10].score,DA[11].score); 
+
+                            }
+                             
+                            
+                               
+                              
+
+                                refreshTable();
+                                
+                           }
+
+
+                                  
+
+                           
+
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+             })
+
+    }
+          
+        
+  function refreshTable(){
+            require.config({
+                paths: {
+                    echarts: 'js/dist'
+                }
+            }); 
+            require(
+            [
+                'echarts',
+                'echarts/chart/bar' ,
+                'echarts/chart/line' 
+            ],
+            function (ec) {
+             
+                var myChart = ec.init(document.getElementById('table'),'macarons'); 
+                
+                var option = {
+                   
+                    legend: {
+                        show:false,
+                        data:[]
+                    },
+                     xAxis : [
+                        {
+                            type : 'category',
+                            data : ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
+                            axisLabel:{ 
+                                    interval:0,
+                                   
+                                    margin:2,
+                                    formatter:function(val){
+                                         return val.split("").join("\n");
+                                    },
+                                    textStyle:{
+                                                        
+                                              fontSize:15 
+                                                  }
+                                },
+                                
+                            
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    toolbox: {
+                        show : false,
+                        feature : {
+                            mark : {show: false},
+                            dataView : {readOnly:false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: false},
+                            saveAsImage : {show: false}
+                        }
+                    },
+                    series : [
+                        {
+                            "name":"分",
+                            "type":"line",
+                            "data":scores,
+                            itemStyle:{
+						       normal:{
+						         color:'#00a0e9',
+						         }
+						  },
+                        }
+                    ]
+                };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+              /*   myChart.on(ecConfig.EVENT.CLICK, eConsole);*/
+                 //myChart.on(ecConfig.EVENT.MAGIC_TYPE_CHANGED, eConsole);
+            }
+        );
+       /* var ecConfig = require('echarts/config');
+        function eConsole(param) {
+            var mes = '【' + param.type + '】';
+            if (typeof param.seriesIndex != 'undefined') {
+                mes += '  seriesIndex : ' + param.seriesIndex;
+                mes += '  dataIndex : ' + param.dataIndex;
+            }
+          
+         
+           
+           
+           
+        }*/
+
+        }  
+     /*   $(function () {
+                var currYear = (new Date()).getFullYear();
+                var opt={};
+                opt.date = {preset : 'date'};
+                opt.datetime = {preset : 'datetime'};
+                opt.time = {preset : 'time'};
+              
+                opt.default = {
+                    theme: 'android-ics light', //皮肤样式
+                    display: 'bubble', //显示方式
+                    mode: 'scroller', //日期选择模式
+                    dateFormat: 'yyyy',
+                    lang: 'zh',
+                    height:26,
+                    width:80,
+                    showNow: false,
+                    nowText: "今天",
+                    startYear: currYear - 3, //开始年份
+                    endYear: currYear//结束年份
+                };
+                
+                $("#chooseDate").mobiscroll($.extend(opt['date'], opt['default']));
+                 
+                
+        });
+       */
+
+
+       $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+        </script>
+    </body>
+</html>

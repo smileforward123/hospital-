@@ -1,0 +1,214 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0; }
+
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  /*使用无衬线字体*/ }
+
+a, img {
+  -webkit-touch-callout: none;
+  /*禁止长按链接与图片弹出菜单*/ }
+
+
+
+button,  optgroup, select, textarea {
+  -webkit-appearance: none;
+  /*去掉webkit默认的表单样式*/ }
+
+a, button,  optgroup, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/ }
+
+
+
+body {
+  -webkit-text-size-adjust: 100% !important;
+  /*禁止IOS调整字体大小*/ }
+
+input::-webkit-input-speech-button {
+  display: none;
+  /*隐藏Android的语音输入按钮*/ }
+
+a {
+  text-decoration: none; }
+
+.wrap{
+	   width:100%;
+	   height:100%;
+	 
+	   position:relative;
+}
+.nav{
+	width:100%;
+	background:#1e81d2;
+	height:3.125rem;
+}
+/* .nav_title{
+	   width:15rem;
+	   height:0.8rem;
+	   margin:0 auto;
+	   position:relative;
+	   text-align:center;
+	    padding-top:1.75rem;
+	    background:#1e81d2;
+
+}
+.nav_title a{ 
+      display:block;
+      height:0.8rem;
+      width:0.8rem;
+
+}
+.nav_title a img{
+	   height:0.8rem;
+	   width:0.8rem;
+
+}
+.back{
+	float:left;
+
+}
+.user_head{
+	  float:right;
+}
+.title_name{
+	    width:30%;
+        text-align:center;
+        height:0.8rem;
+        position:absolute;
+       
+        font-size:0.8rem;
+        color:white;
+        font-family:"黑体";
+
+} */
+.user_photo{
+	     height:4.225rem;
+	     width:3.775rem;
+	     margin:0 auto;
+	     position:relative;
+	     text-align:center;
+	     margin-top:6.975rem;
+	     margin-bottom:2.825rem;
+
+}
+.photo_border{
+
+	    width:3.775rem;
+	    height:4.225rem;
+	    position:absolute;
+        left:0px;
+        top:0px;
+        z-index:10;
+
+}
+.photo_core{
+	    width:3.775rem;
+	    height:4.225rem;
+	    position:absolute;
+	    left:0px;
+	    top:0px;
+	    z-index:1;
+}
+
+
+
+.upper_part{
+       
+}
+.menu_box{
+	   width:50%;
+	   height:5.275rem;
+	   border:1px solid #c8c8c8;
+	   box-sizing:border-box;
+	   text-align:center;
+	   float:left;
+}
+
+
+
+
+
+
+.options{
+	   width:100%;
+	   position:relative;
+	   margin-top:5rem;
+}
+.item{
+	  width:15rem;
+	  height:1.425rem;
+	  border:1px solid #359fd3;
+	  margin:0 auto;
+	  background:#359fd3;
+	  margin-bottom:0.6rem;
+	  border-radius:0.2rem;
+	  position:relative;
+	  line-height:1.425rem;
+}
+.item img{
+	  float:left;
+	  margin-top:0.35rem;
+	  margin-left:0.75rem;
+}
+.item a{
+
+	    display:block;
+	    height:100%;
+	
+	    float:left;
+	    font-size:0.7rem;
+	    color:white;
+	    line-height:1.425rem;
+}
+
+.item input{
+
+	   width:60%;
+	   height:100%;
+	    background:#359fd3;
+	    border:none;
+	    outline:none;
+	    float:right;
+	    font-size:0.7rem;
+	    color:white;
+	    text-align:right;
+	    padding-right:0.5rem;
+}
+.logout{
+	width:15rem;
+	height:1.75rem;
+	margin:0 auto;
+	background:#1d7fce;
+	color:white;
+	text-align:center;
+	line-height:1.75rem;
+	font-size:0.675rem;
+	margin-top:1rem;
+	
+}
+.changePW{
+	    border:1px solid #d2d2d2;
+	    width:3.9rem;
+	    height:1.25rem;
+	    color:#5a5a5a;
+	    font-size:0.7rem;
+	    border-radius:0.2rem;
+	    float:right;
+	    margin-right:0.5rem;
+	    margin-top:1rem;
+	    
+}
+.logout_box{
+	   position:relative;
+	   width:100%;
+	   margin:0 auto;
+}
+
+
+

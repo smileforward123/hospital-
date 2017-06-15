@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <title></title>
+        <link href="css/clear.css" rel="stylesheet">
+        <link href="css/unitValueTable.css" rel="stylesheet"/>
+        <link href="css/mobiscroll.css" rel="stylesheet" />
+        <link href="css/mobiscroll_date.css" rel="stylesheet" />
+    
+    </head>
+    <script>
+         document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+    </script>
+    <style>
+            .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+
+
+           .scroll{
+                   padding-bottom:2rem;
+           }
+
+            @media  (orientation: portrait){
+
+                       #header{
+
+           text-align:center;
+      }
+            }
+
+
+       .dwwl1{
+
+               display:none;
+           }     
+    </style>
+    <script src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/echarts.js"></script>
+    <!-- <script src="css/layer/layer.js"></script> -->
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+    <script src="js/common.js"></script>
+    <body>
+        <header id="header" class="clear">
+            <a class="back" href="homePage_Nav.html"> <img src="images/app_03.jpg"/></a>
+            
+                <span id="curId">单位价值表</span>
+           
+            <a class="logo" href="basicInfor.html"><img src="images/app_06.jpg"></a>
+
+        </header>
+        <div class="scroll" style="width:100%">
+           <div class="searchNav" style="margin-top:0">
+                <input type="text" value="" id="chooseDate"/>
+               <input type="button" name="" value="查询" id="searchBtn">
+           </div>
+           <div id="table" style="height:20rem;width:100%">
+               
+           </div>
+           <table id="tableBox" style="width:100%">
+                <thead>
+                    <tr> 
+                        <th>序号</th>
+                        <th>月份</th>
+                        <th>利润金额</th>
+                        <th>利润率</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                   <!--  <tr>
+                       <td>1</td>
+                       <td>量子部</td>
+                       <td>10,000</td>
+                       <td>80%</td>
+                   </tr>
+                    <tr>
+                       <td>2</td>
+                       <td>门诊部</td>
+                       <td>80,000</td>
+                       <td>35%</td>
+                   </tr> -->
+                     
+                    <!-- <tr>
+                        <td colspan="2">合计</td>
+                        <td colspan="2">2355224</td>
+                    </tr> -->
+                   
+                </tbody>
+              
+           </table>
+        </div>
+        <script>
+            
+
+
+
+      $(document).ready(function(){
+
+             
+                         var fullyear= $.session.get('clickDate').split("-");
+                          
+
+                         
+                           $("#chooseDate").val(fullyear[0]);
+                           $("#curId").text($.session.get('curDptName'));
+
+
+                            table($.session.get('currentDpt')); 
+
+      })
+
+
+
+ 
+
+            require.config({
+                paths: {
+                    echarts: 'js/dist'
+                }
+            });
+            var param=getParam();
+          
+              var symbol=[];  
+             var depart=[];
+            var min=0;
+            var max=0;
+            var profit=[];
+            var departId;
+           
+          
+            function table(departId){
+                Datas({
+                    url:"mobile/profits_analysis_depart.htm",
+                    datas:{
+                       "report_time":$("#chooseDate").val(),
+                       "depart_id":$.session.get('currentDpt')
+                    },
+                    success:function(data){
+                       
+                        var str="";
+                        if(data.status){
+                            
+                            for(var i=0;i<data.data.length;i++){
+                               
+                                profit.push(data.data[i].profits);
+                                depart.push(data.data[i].depart_name);
+                                str+="<tr>"+
+                                   "<td>"+(i+1)+"</td>"+
+                                   "<td>"+data.data[i].reportMonth+'月'+"</td>"+
+                                   "<td>"+regix(data.data[i].profits)+"</td>"+
+                                   "<td>"+data.data[i].percent+"</td>"+
+                                "</tr>";
+                               /*  if(data.data[i].profits==0){
+                                      minusSymbol='';
+                                    }else{
+
+                                         minusSymbol='-';
+                                    }*/
+                               
+                            }
+                            
+                            $("#tbody").html(str);
+                            max = Math.max.apply(Math, profit);
+                            min = Math.min.apply(Math, profit);
+                            compare();
+                            require(    
+                                [
+                                    'echarts',
+                                    'echarts/chart/bar' ,
+                                    'echarts/chart/line' 
+                                ],
+                                function (ec) {
+                                 
+                                    var myChart = ec.init(document.getElementById('table'),'macarons'); 
+                                    
+                                    var option = {
+                                       
+                                        legend: {
+                                            show:false,
+                                            data:['销量']
+                                        },
+                                       /* grid: {
+                                               x:'3%',
+                                               y: '4%',
+                                               x2:"3%",
+                                               y2:"12%"
+                                            },*/
+                                         xAxis : [
+                                            {
+                                                type : 'category',
+                                                data : ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
+                                                axisLine :{
+                                                  onZero:false
+                                                    },
+                                                axisLabel:{ 
+                                                    interval:0,
+                                                       rotate:0,
+                                                        margin:2,
+                                                        formatter:function(val){
+                                                             return val.split("").join("\n");
+                                                        },
+                                                        textStyle:{
+                                                          /* color:"", //刻度颜色*/
+                                                           fontSize:16.5  //刻度大小
+                                                      }
+                                                    },
+                                                
+                                            }
+                                        ],
+                                        grid: { // 控制图的大小，调整下面这些值就可以，
+                                                                    x:70,
+                                                                    x2: 70,
+                                                                    y2: 140,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+                                             },
+                                        yAxis : [
+
+                                            {
+                                                type : 'value',
+                                            /*     min: min,
+                                                max: max,*/
+                                                splitNumber: 10,/**/
+                                                  axisLabel:{formatter:function (value) {
+                                                                // Function formatter
+                                                              value =formats(value);
+                                                                return value
+                                                            }
+                                                } 
+                                            }
+                                        ],
+                                       series : [
+                                            {
+                                                "name":"部门",
+                                                "type":"line",
+                                                "data":profit
+                                            }
+                                        ]
+                                    };
+                             var ecConfig = require('echarts/config');
+                                    // 为echarts对象加载数据 
+                                    myChart.setOption(option); 
+                                   
+                                    
+                                }
+                           
+                            );
+                           
+           
+
+                        }else{
+                           /* layer.msg(data.message);*/
+                        }
+
+                    },
+                    error:function(){
+
+                    }
+
+
+
+
+
+
+
+
+                })
+            }
+            
+            $("#searchBtn").click(function(){
+                depart=[];
+                min=0;
+                max=0;
+                profit=[];
+                table($.session.get('currentDpt'));
+            })
+
+
+
+
+
+
+       $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+
+
+
+
+      
+  
+
+
+
+
+
+     
+           function regix(str){
+            var num = parseFloat(str).toFixed(3);//这里因为我需要两位小数所以做一个限制，你们看情况做小数位的限制
+            var s = num.substring(0, (num.length-1));//只取小数位2位
+             
+            return s && s.toString().replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+                return $1 + ",";
+            });;
+        }
+          
+    
+     
+      function test(str){ 
+              var re = /(?=(?!\b)(\d{3})+$)/g; 
+              return str.toString().replace(re, ','); 
+          } 
+        
+
+
+
+        </script>
+    </body>
+</html>

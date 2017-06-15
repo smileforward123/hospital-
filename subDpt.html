@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title></title>
+        <link href="css/clear.css" rel="stylesheet">
+        <link href="css/unitValueTable.css" rel="stylesheet"/>
+        <link href="css/mobiscroll.css" rel="stylesheet" />
+        <link href="css/mobiscroll_date.css" rel="stylesheet" />
+         <style>
+
+           
+
+
+
+             .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+
+               @media  (orientation: portrait){
+
+                       #header{
+
+                              text-align:center;
+                }
+            }
+
+
+            #yesno{
+                      width: 5rem;
+                      height: 1.6rem;
+                    
+                      background-size: contain;
+                      border: none;
+                      outline: none;
+                      text-indent: 0.3rem;
+                      font-size: 0.7rem;
+                      box-shadow: 3px 3px 6px #d2d2d2;
+                      margin-top: 0.4rem;
+                      margin-right: 1rem;
+                      border:1px solid #d5d5d5; 
+                      
+
+
+            }
+         </style>
+    </head>
+    <script>
+         document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+    </script>
+    
+    <script src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="css/layer/layer.js"></script>
+    <script src="js/echarts.js"></script>
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+    <script src="js/common.js"></script>
+    <body>
+        <header id="header" class="clear">
+            <a class="back" href="javascript:void(0)"> <img src="images/app_03.jpg"/></a>
+            <h3 class="pageTitle">
+                
+            </h3>
+            <a class="logo" href="basicInfor.html"><img src="images/app_06.jpg"></a>
+
+        </header>
+        <div class="scroll">
+            <nav class="nav">
+                <a href="valueTable.html">单位价值表</a><a  class="active" href="javascript:void(0)">利润分析</a>
+            </nav>
+           <div class="searchNav">
+                <input type="text" value="" id="chooseDate"/>
+                <select id="yesno">
+                         <option value="false" selected="selected">负</option>
+                         <option value="true">正</option>
+                 </select>
+               <input type="button" name="" value="查询" id="searchBtn">
+           </div>
+           
+         
+             <div id="table" style="height:20rem;width:120%;width:130%;">
+               
+             </div>
+        
+           <table id="tableBox">
+                <thead>
+                    <tr> 
+                        <th>序号</th>
+                        <th>部门</th>
+                        <th>利润金额</th>
+                        <th>利润率</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                   <!--  <tr>
+                       <td>1</td>
+                       <td>量子部</td>
+                       <td>10,000</td>
+                       <td>80%</td>
+                   </tr> -->
+                    
+                    
+                     
+                    <tr>
+                        <td colspan="2">合计</td>
+                        <td colspan="2">2355224</td>
+                    </tr>
+                   
+                </tbody>
+              
+           </table>
+        </div>
+        <script>
+          
+           $(document).ready(function(){
+
+                           var newDate=new Date();
+                           var fullyear=newDate.getFullYear();
+                           var fullmonth=newDate.getMonth();
+
+                           /*if(fullmonth<10){
+                               fullmonth=newDate.getMonth();
+                                
+                           }*/
+                           $("#chooseDate").val($.session.get('clickDate'));
+                           table();
+                           if( $.session.get('currentDpt')){
+                                 $(".pageTitle").text($.session.get('curDptName'));
+                                  clickDptId.push($.session.get('currentDpt')); 
+                                  clickDptName.push($.session.get('curDptName'));
+                           }
+           })
+            
+           
+           var symbol=[]; 
+           var currentDpt=[];
+           var curDptName=[];
+           var clickText='';
+           var clickDptId=[];//点击过的部门存入数组
+           var clickDptName=[]; //点击过的部门名称存入数组
+            var NNN='';
+            var nodata=0;
+            var currentName='';
+            function eConsole(param) {
+                NNN='';
+                clickText='';
+                currentName='';
+                var mes = '【' + param.type + '】';
+                if (typeof param.seriesIndex != 'undefined') {
+                    mes += '  seriesIndex : ' + param.seriesIndex;
+                    mes += '  dataIndex : ' + param.dataIndex;
+                }
+
+              
+             
+             
+             
+                   //点击问题处理逻辑
+                 if(param.data==undefined){
+
+                          var names = param.name.toString();
+
+                          var nnnnnnn= names.split("\n");   
+                        for(var i=0;i<nnnnnnn.length;i++){
+
+                             
+                             NNN +=  nnnnnnn[i];
+
+                        } 
+                        
+                         numberFormat=[];
+                        
+                        //clickText当前部门Id   currentName当前部门名称
+                        clickText += currentDpt[curDptName.indexOf(NNN)];
+                         currentName += curDptName[curDptName.indexOf(NNN)];
+                          $.session.set('curDptName',currentName);
+                           $.session.set('currentDpt',clickText);
+                            profit=[];
+                             depart=[];
+                           if(nodata==1){
+                               return;
+                           }else{
+                                $(".pageTitle").text($.session.get('curDptName'));
+                           }
+
+
+
+                           clickDptId.push(clickText); 
+                           clickDptName.push(currentName);
+                        
+                           table();
+                }else{
+                        //点击柱子跳转
+                    $.session.set('clickDate',$("#chooseDate").val());
+                      $.session.set('currentDpt',currentDpt[param.dataIndex]);
+                        $.session.set('curDptName',curDptName[param.dataIndex]);
+                           window.location.href="table.html?index="+$.session.get('curDptName')+"";
+
+
+                      
+                          
+                }
+               
+
+             
+           
+           
+           
+            }
+       
+
+            
+
+            require.config({
+                paths: {
+                    echarts: 'js/dist'
+                }
+            });
+
+            var depart=[];
+            var min=0;
+            var max=0;
+            var profit=[];
+            function table(){
+                  currentDpt=[];
+                  curDptName=[];
+                Datas({
+                    url:"mobile/profits_analysis_departs.htm",
+                    datas:{
+                       "report_time":$("#chooseDate").val(),
+                       "depart_id":clickText ||  $.session.get('currentDpt'),
+                        "isOrNo":$("#yesno").val()/*$.session.get("departId")*/
+                    },
+                    success:function(data){
+                        
+                        var str="";
+                       
+                         if(!data.data.length){
+                           depart=['无数据'];
+                           profit=[0];
+                         
+                           layer.msg('无相关数据');
+                           nodata=1;
+                        
+                         
+
+                         }
+                     
+                        if(data.status){
+
+                            
+                            for(var i=0;i<data.data.length;i++){
+                                profit.push(data.data[i].profits);
+                                depart.push(data.data[i].depart_name);
+                                maximum.push(data.data[i].profits);
+                                currentDpt.push(data.data[i].id);
+                                curDptName.push(data.data[i].depart_name)
+                            str+="<tr>"+
+                               "<td>"+(i+1)+"</td>"+
+                               "<td>"+data.data[i].depart_name+"</td>"+
+                               "<td>"+regix(data.data[i].profits)+"</td>"+
+                               "<td>"+data.data[i].percent+"</td>"+
+                            "</tr>";
+
+                              /*if(data.data[i].profits==0){
+                                      minusSymbol='';
+                                    }else{
+
+                                         minusSymbol='-';
+                                    }*/
+
+                            }
+                           
+                            $("#tbody").html(str);
+                            max = Math.max.apply(Math, profit);
+                            
+                            min = Math.min.apply(Math, profit);
+
+                            compare();
+                            require(    
+                                [
+                                    'echarts',
+                                    'echarts/chart/bar' ,
+                                    'echarts/chart/line' 
+                                ],
+                                function (ec) {
+                                 
+                                    var myChart = ec.init(document.getElementById('table'),'macarons'); 
+                                    
+                                    var option = {
+                                       
+                                        legend: {
+                                            show:false,
+                                            data:['销量']
+                                        },
+                                       /* grid: {
+                                                x: '15%',
+                                               y: '4%',
+                                               x2:"3%",
+                                               y2:"12%"
+                                            },*/
+                                         xAxis : [
+                                            {
+                                                type : 'category',
+                                                data : depart,
+                                                axisLine :{
+                                                  onZero:false
+                                                    },
+                                                axisLabel:{ 
+                                                    interval:0,
+                                                    clickable: function(){
+                                                      
+                                                              return true;
+
+                                                        
+                                                      
+                                                    }, 
+                                                    textStyle:{
+                                                          /* color:"", //刻度颜色*/
+                                                           fontSize:16.5  //刻度大小
+                                                      },                                      
+                                                   margin:0,
+                                                   formatter:function(val){
+                                                   return val.split("").join("\n");
+
+                                                                                            }
+                                                    },
+                                                
+                                            }
+                                        ],
+
+                                         grid: { // 控制图的大小，调整下面这些值就可以，
+											                        x:100,
+											                        x2: 100,
+											                        y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+                                             },
+                                        yAxis : [
+
+                                            {
+                                                type : 'value',
+                                               /*  min: min,
+                                                max: max,*/
+                                                splitNumber: 10,
+                                                 axisLabel:{formatter:function (value) {
+                                                                // Function formatter
+                                                              value =formats(value);
+                                                                return value
+                                                            }
+                                                } 
+                                            }
+                                        ],
+                                       series : [
+                                            {
+                                                "name":"部门",
+                                                "type":"bar",
+                                                "data":profit,
+                                                "barWidth":10,
+                                            }
+                                        ]
+                                    };
+                             var ecConfig = require('echarts/config');
+                                    // 为echarts对象加载数据 
+                                    myChart.setOption(option); 
+                                     myChart.on(ecConfig.EVENT.CLICK, eConsole);
+
+
+                                 
+                                    
+                                }
+                           
+                            );
+                           
+           
+
+                        }
+
+                    },
+                    error:function(){
+
+                    }
+
+
+
+
+
+
+
+
+                })
+            }
+            
+			       /*   var newDate=new Date();
+			            var fullyear=newDate.getFullYear();
+			              var fullmonth=newDate.getMonth();
+			               
+
+			            */
+			            $("#searchBtn").click(function(){
+			                depart=[];
+			                min=0;
+			                max=0;
+			               /* clickText='';*/
+			                if(nodata==1){
+			                  //点击文本返回的当前部门Id
+			                  clickText='';
+			                  nodata=0;
+			                /*  $(".pageTitle").text("利润分析") ;*/
+			                }
+			                profit=[];
+
+			                table();
+			               
+			            })
+               
+
+                $("#yesno").change(function(){
+
+                     
+                      numberFormat=[];
+                      depart=[];
+                      min=0;
+                      max=0;
+                     /* clickText='';*/
+                      if(nodata==1){
+                        //点击文本返回的当前部门Id
+                        clickText='';
+                        nodata=0;
+                       
+                      }
+                      profit=[];
+                      table();
+
+               })
+          
+             
+        
+       
+     $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy-mm', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+   
+
+        
+
+
+     //返回上一级部门
+     
+     $(".back").click(function(){
+                 currentDpt=[];
+                  curDptName=[];
+                  depart=[];
+                  profit=[];
+                  nodata=0;
+              if(clickDptId.length==1 && clickDptName.length==1){
+
+                        window.location.href='profitTable.html';
+              }else{
+
+                     
+                    
+                        
+                        
+                        
+                         clickDptName.splice(clickDptName.length-1,1);
+                          clickDptId.splice(clickDptId.length-1,1);
+                          
+                           
+                              clickText=clickDptId[clickDptId.length-1];
+                               $(".pageTitle").text(clickDptName[clickDptName.length-1]);
+                                table();
+
+              }
+      
+
+     })
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+     
+           function regix(str){
+            var num = parseFloat(str).toFixed(3);//这里因为我需要两位小数所以做一个限制，你们看情况做小数位的限制
+            var s = num.substring(0, (num.length-1));//只取小数位2位
+             
+            return s && s.toString().replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+                return $1 + ",";
+            });;
+        }
+          
+    
+     
+      function test(str){ 
+              var re = /(?=(?!\b)(\d{3})+$)/g; 
+              return str.toString().replace(re, ','); 
+          } 
+
+        </script>
+    </body>
+</html>

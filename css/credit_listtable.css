@@ -1,0 +1,102 @@
+@charset "UTF-8";
+#header{
+     width:100%;
+    background:#1e81d2;
+    height:2.2rem;
+    line-height:2.2rem ;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:10000;
+    color:#fff;
+    font-size: 0.65rem;
+}
+#header  img{
+     height: 0.8rem;
+    width: 0.8rem;
+}
+.back{
+    float: left;
+    height: 0.8rem;
+    width: 0.8rem;
+    vertical-align: middle;
+    margin-left:0.7rem ;
+    margin-top: 0.7rem;
+}
+
+.pageTitle{
+    float: left;
+    margin-left:3.6rem ;
+}
+.logo{
+    float: right;
+     height: 0.8rem;
+    width: 0.8rem;
+     vertical-align: middle;
+      margin-top: 0.7rem;
+      margin-right: 0.9rem;
+}
+.scroll{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 2.2rem;
+    overflow: auto;
+    box-sizing: border-box;
+    bottom:0;
+   
+}
+.searchNav{
+    background:#fafafa;
+    height:2rem;
+    line-height: 2rem;
+    width:100%;
+    text-align: center;
+    padding-bottom:0.5rem;
+}
+#chooseDate{
+    width: 5rem;
+    height: 1.6rem;
+    font-size: 0.7rem;
+    background: url(../images/dateBtn.jpg) no-repeat center;
+    background-size: contain;
+    border: none;
+    outline: none;
+    text-indent: 0.3rem;
+   
+    box-shadow: 3px 3px 6px #d2d2d2;
+    margin-top: 0.4rem;
+    margin-right: 1rem;
+}
+#searchBtn{
+    height: 1.6rem;
+    width: 2.25rem;
+    font-size: 0.7rem;
+    background: url(../images/searchBtn.jpg) no-repeat center;
+    background-size: contain;
+    border: none;
+    outline: none;
+    margin-top: 0.4rem;
+    box-shadow: 3px 3px 6px #d2d2d2;
+}
+.departTop {
+           font-size:0.7rem;
+           width:14.85rem;
+           margin:0 auto;
+}
+.departTop .heads{
+       line-height:0.6rem;
+}
+.departTop .heads img{
+
+       width:0.325rem;
+       height:0.5rem;
+}
+.sameColor{
+       color:#1e82d2;
+}
+.departTop table td{
+
+         border-bottom:1px dashed black ;
+         height:1.25rem;
+}

@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0; }
+
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  /*使用无衬线字体*/ }
+
+a, img {
+  -webkit-touch-callout: none;
+  /*禁止长按链接与图片弹出菜单*/ }
+
+
+
+button,  optgroup, select, textarea {
+  -webkit-appearance: none;
+  /*去掉webkit默认的表单样式*/ }
+
+a, button,  optgroup, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/ }
+
+
+
+body {
+  -webkit-text-size-adjust: 100% !important;
+  /*禁止IOS调整字体大小*/ }
+
+input::-webkit-input-speech-button {
+  display: none;
+  /*隐藏Android的语音输入按钮*/ }
+
+a {
+  text-decoration: none; }
+body{
+	  background:#00a2ea;
+}
+.wrap{
+	   width:100%;
+	 
+	   background:#00a2ea;
+	   position:relative;
+}
+.login_top{
+
+	    width:9rem;
+	    height:7.5rem;
+	    background:url(../images/logintop.jpg) no-repeat center;
+	    background-size:cover;
+	    margin:0 auto;
+	    z-index:1;
+}
+.Icon{
+	  width:5.075rem;
+	  height:5.7rem;
+	  background:url(../images/app_log.jpg) no-repeat center;
+	  background-size:cover;
+	  margin:0 auto;
+	  z-index:3;
+	  margin-top:-0.5rem;
+}
+.title{
+	   width:100%;
+	   height:0.75rem;
+	   background:url(../images/title.jpg) no-repeat center;
+	   background-size:contain;
+	   margin-top:0.375rem;
+}
+.theAccount{
+	     height:2rem;
+	     width:12.5rem;
+	   
+	  
+	     margin:0 auto;
+	     margin-top:0.75rem;
+	     text-align:center;
+	     position:relative;
+	     margin-bottom:0.75rem;
+
+
+}
+.theAccount input{
+	   border:none;
+	  
+	   height:100%;
+	  width:75%;
+      padding-left: 2rem;
+	   background:url(../images/app_02_07.jpg) no-repeat center;
+	      background-size:contain;
+	    /*   text-indent:2.8rem; */
+	      color:white;
+	   
+}
+
+.theAccount #password{
+          background:url(../images/app_02_09.jpg) no-repeat center;
+	      background-size:contain;
+}
+.theAccount #submitBtn{
+          background:url(../images/app_02_10.jpg) no-repeat center;
+	      background-size:contain;
+}
+.register{
+	   
+	      background:url(../images/app_02_12.jpg) no-repeat center;
+	      background-size:contain;
+	      width:12.5rem;
+	      height:0.65rem;
+	      margin:0 auto;
+	      text-align:center;
+	      line-height:0.65rem;
+	      position:relative;
+
+
+}
+.register a{
+	      color:white;
+	      font-size:0.6rem;
+	      text-align:center;
+	      display:inline-block;
+	      margin:0 auto;
+	      line-height:0.65rem;
+	      height:0.65rem;
+	      margin-left:0.4rem;
+}
+
+.fogotPW_box{
+
+	    width:12.125rem;
+        height:1.125rem;  
+        line-height:1.125rem;
+        position:relative;
+        margin:0 auto;
+        margin-top:2.5rem;
+}
+.fogotPW_box a{
+	           display:inline-block;
+	           width:50%;
+	           height:1.125rem;
+	           line-height:1.125rem;
+	           font-size:0.65rem;
+	           color:white;
+               
+}
+.rememberPW{
+	  float:left;
+	  background:url(../images/app_02_16.jpg) no-repeat center left;
+	  background-size:contain;
+	  text-indent:1.3rem;
+
+}
+.on{
+
+	float:left;
+	  background:url(../images/app_02_15.jpg) no-repeat center left;
+	  background-size:contain;
+	  text-indent:1.3rem;
+}
+
+.forgotPW{
+	   float:right;
+	   text-align:right;
+	   text-decoration:underline;
+}

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+	<meta charset="UTF-8">
+	<title></title>
+  <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+
+  <metaname content="landscape">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/Daily.css">
+  <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+  <link rel="stylesheet" type="text/css" href="css/public.css">
+  <link href="css/mobiscroll.css" rel="stylesheet" />
+  <link href="css/mobiscroll_date.css" rel="stylesheet" />
+  
+	 
+   <script src="js/jquery-2.2.1.js"></script> 
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+	<script type="text/javascript" src="css/layer/layer.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+    
+	<script type="text/javascript">
+		 document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+	</script>
+   <style>
+
+    .searchNav{
+        
+        margin-top:2.2rem;
+        background: #fafafa;
+        height: 2rem;
+        line-height: 2rem;
+        width: 100%;
+        text-align: center;
+    }
+    .theData table{
+         width:150%;
+    }
+  
+
+   @media  (orientation: landscape){
+               .bottom_menu{
+    
+          width:100%;
+        height:1rem;
+        background:#f0eeef;
+        text-align:center;
+        line-height:1rem;
+        position:fixed;
+        bottom:0;
+        left:0;
+    
+    };
+
+   }
+   
+
+
+   @media  (orientation: landscape){
+         .bottom_menu a{
+       display:inline-block;
+       width:50%;
+       height:1rem;
+       float:left;
+       text-align:center;
+       font-size:0.5rem;
+       line-height:1rem;
+       padding-top:0.05rem;
+       color:#1e83d1;
+    
+    }
+
+   }
+
+
+    @media  (orientation: landscape){  .nav_title{
+     width:100%;
+     height:1rem;
+     margin:0 auto;
+     position:relative;
+     text-align:center;
+     line-height:1rem;
+     z-index:1000;
+
+}
+}
+
+   
+   .nav{
+         height:2.2rem;
+   }
+
+     @media  (orientation: landscape){
+
+   .nav{
+  width:100%;
+  background:#1e81d2;
+  height:2.3rem;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10000;
+  text-align:center;
+  font-size:0.8rem;
+  padding-top:0.2rem;
+}
+   }
+
+
+   @media  (orientation: landscape){
+          .theData{margin-top:1.3rem} 
+   }
+
+
+   #search{
+        
+         /*  width:5rem; */
+        
+       
+          background: url("images/arrow.png") no-repeat scroll right center ;
+          background-color:white;
+          text-align:left;
+         width: auto;
+          height: 1.4rem;
+          line-height: 1rem;
+          border: solid 1px #ccc;
+          text-indent: 0.2rem;
+          margin:0 auto;
+          font-size:0.8rem;
+         
+      
+   }
+
+ .more{
+
+          display:inline-block;
+          height:0.9rem;
+          margin:0 auto;
+          width:100%;
+          text-align:center;
+          font-size:1rem;
+  }
+  #isloading img{
+
+	   width:0.6rem;
+	   height:0.6rem;
+}
+#isloading{
+      height:1rem;line-height:1rem;
+      font-size:0.7rem; 
+      display:none;
+}
+
+.dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+   </style>
+</head>
+<body>
+	      <div class="wrap" style="padding-bottom:4rem;overflow:auto">
+              
+             
+                <div class="nav">  
+                   <div class="nav_title ">
+                        <a href="homePage_Nav.html" class="back">
+                              <img src="images/app_03.jpg"/>
+                        </a>
+                        往来账户
+                        <a href="basicInfor.html" class="user_head">
+                              <img src="images/app_06.jpg"/>
+                        </a>
+                        <div style="clear:both"></div>
+                       
+                          
+                   </div>
+                      
+                 </div>  
+               
+               <div class="searchNav"> 
+                   <input type="text" value="" id="chooseDate" style="height:1.2rem;font-size:0.8rem;width:5rem;border:solid 1px #ccc"/> 
+                   <select id="search">
+
+                   </select>
+               </div>  
+                
+            
+              <div class="theData" style="margin-top:0rem;">
+                     <table cellspacing="0" id="actList" >
+                          <tr>
+                             <th>序号</th>
+                             <th>部门</th>
+                             <th>摘要</th>
+                             <th>分类</th>
+                             <th>经手人</th>
+                             <th>收入</th>
+                             <th>支出</th>
+                             <th>备注</th>
+                             <th>时间</th>
+                            
+                          </tr>
+
+                         <!--  <tr>
+                              <td>1</td>
+                              <td>量子部</td>
+                              <td>房租</td>
+                              <td>办公费</td>
+                              <td>张三</td>
+                              <td>8,000</td>
+                              <td>100</td>
+                              <td>2016-12-12</td>
+                              
+                         
+                         </tr> -->
+
+                       
+
+                         <!--  <tr>
+                              <td colspan="5" style="text-align:left;text-indent:0.3rem;">合计</td>
+                             
+                              <td  id="orientation">500</td>
+                              <td>400</td>
+                              <td></td>
+                              
+                         
+                         </tr> -->
+                     </table>
+              </div>
+              <div></div>
+
+              <span class='more' style='height:0.9rem;display:none;font-size:0.7rem;'>暂无更多数据...</span>
+              <span class='themore' style="display:none;text-align:center;font-size:0.7rem;display:block;width:100%">加载更多....</span> 
+              <p id='isloading' style="text-align:center;">
+                   <img src="images/isloading.gif" />加载中....
+              </p>  
+
+
+               <div class="bottom_menu">
+                     <a href="homePage_Nav.html">
+                           <img src="images/app_35.jpg"/>
+                           <br/>首页
+
+                     </a>
+                  <!--    <a href="javascript:void(0)">
+                        <img src="images/app_37.jpg"/>
+                        <br/>分类 
+                  </a>
+                  <a href="javascript:void(0)">
+                        <img src="images/app_32.jpg"/>
+                        <br/>关注
+                  </a> -->
+                     <a href="basicInfor.html">
+                          <img src="images/app_29.jpg"/> 
+                          <br/>我
+                     </a>
+                     <div style="clear:both"></div>
+               </div>
+
+	      </div>
+  	
+	
+</body>
+</html>
+
+<script>
+    
+$(document).ready(function(){
+
+
+
+
+
+
+
+       var str='';
+       var serialNo=0; 
+       var company='';
+       var totalstr="" 
+       var PageNum=1;
+       var totalPageNum=0;
+       var totalIncome=0;
+       var totalExpense=0;
+       var notLast='';
+        $.session.set("theDepId",''); 
+
+      var newDate=new Date();
+       var fullyear=newDate.getFullYear();
+       var fullmonth=newDate.getMonth();
+
+        if(fullmonth<9 ){
+             fullmonth='0'+(fullmonth+1);
+              $("#chooseDate").val(fullyear+'-'+fullmonth);
+                                
+              }else if(fullmonth >=9) {
+                               
+               fullmonth=fullmonth+1;
+              $("#chooseDate").val(fullyear+'-'+fullmonth);
+          }
+       getDate();
+ 
+
+ $("#search").change(function(){
+     
+     $.session.set("theDepId",$(this).val());
+       str='';
+         totalstr='';
+           serialNo=0;
+             PageNum=1;
+              totalIncome=0;
+                totalExpense=0;
+                 totalPageNum=0;
+                   $(".themore").hide();
+                     $(".more").hide(); 
+                       $("#actList td").remove();
+                         getDate();
+ })
+
+
+$("#chooseDate").change(function(){
+        $.session.set("theDepId",$("#search").val());
+         str='';
+           totalstr='';
+             serialNo=0;
+               PageNum=1;
+                totalIncome=0;
+                  totalExpense=0;
+                   totalPageNum=0;
+                     $(".themore").hide();
+                       $(".more").hide(); 
+                         $("#actList td").remove();
+                           getDate();
+           
+
+})       
+
+
+
+
+ $(window).scroll(function(){
+                         var scrollTop=$(this).scrollTop();
+                          var scrollHeight = $(document).height();
+                     
+
+
+                          var windowHeight = $(this).height();
+                       
+
+
+                    if(scrollTop+windowHeight==scrollHeight){
+                          
+
+                           /* if(totalPageNum==PageNum){
+                                 
+                                  return;
+                            } */
+                            
+                       
+                           
+                             $("#isloading").show();
+                                   $(".themore").hide();
+                                      $(".more").hide(); 
+                       
+                         setTimeout(
+
+                           function(){
+
+                               if(totalPageNum==PageNum){
+                                     $("#isloading").hide();
+                                       $(".more").css("display","block");
+                                        return;
+                              }  
+                                PageNum +=1;  
+                                  getDate();
+                              
+                              
+                               
+                           },1000
+
+                          )
+                          
+                         
+                         
+                    }
+
+               })
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+function getDate(){
+       
+     str='';
+     totalstr='';
+    /* serialNo=0;*/
+     
+     Datas({
+                  url:"mobile/deal_report.htm",
+                  datas:{
+                   
+                     "depart_id":$.session.get("theDepId") || $.session.get("departId"),
+                     "pageSize":20,
+                     "pageNum":PageNum,
+                     "report_time":$("#chooseDate").val()
+                    
+
+                    
+                  },
+                  success:function(data){
+                           
+
+                          if(data.status){
+                               
+                             
+                               totalPageNum=data.data.lastPage;
+                               if(!data.data.list.length){
+                                    $(".more").show();
+                                     $(".themore").hide(); 
+                                        $("#isloading").hide();
+                                   return
+                               }
+                                if(!data.data.nextPage){
+                                                  
+                                           $(".more").show();
+                                             $(".themore").hide();
+                                                    
+                                                 
+                                                  
+                                            }else if(data.data.nextPage){
+                                                     
+                                                  
+                                                    $(".themore").show();
+                               }
+                              
+                            str='';
+                            
+                            
+                             for(var i=0;i<data.data.list.length-1;i++){
+                                       
+                                    
+
+                                      serialNo+=1;
+                                     
+                                  str += '<tr>'+
+                                               '<td style="">'+serialNo+'</td>'+
+                                               '<td>'+data.data.list[i].depart_name+'</td>'+
+                                               '<td>'+data.data.list[i].digest+'</td>'+
+                                               '<td>'+data.data.list[i].cate_name+'</td>'+
+                                               '<td>'+data.data.list[i].user_name+'</td>'+
+                                               '<td>'+data.data.list[i].income+'</td>'+
+                                               '<td>'+data.data.list[i].cost+'</td>'+
+                                              ' <td>'+data.data.list[i].comment+'</td>'+
+                                               '<td>'+data.data.list[i].logs_date.substring(0,11)+'</td>'+
+                                          '</tr>';
+                                            
+                                          
+                                              totalIncome += parseFloat(data.data.list[i].income);
+                                              totalExpense += parseFloat(data.data.list[i].cost);
+                                    
+                                      
+                                      }
+                                    
+                                   
+                                   totalstr += '<tr id="total">'+
+                                                         ' <td colspan="5" style="text-align:left;text-indent:0.3rem;">合计</td>'+
+                                                         
+                                                         ' <td  id="orientation">'+totalIncome.toFixed(2)+'</td>'+
+                                                         ' <td>'+totalExpense.toFixed(2)+'</td>'+
+                                                          ' <td></td>'+
+                                                         ' <td></td>'+
+                                                    ' </tr>';
+
+
+
+                                      
+                               
+                                if($("#total")){
+
+                                       $("#total").remove();
+                                }
+                           
+                                
+                              $("#actList").append(str);
+                                $("#actList").append(totalstr);
+                                     $("#isloading").hide();
+                                
+                           }
+
+
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+
+
+           }
+
+
+              
+
+
+                 Datas({
+                  url:"mobile/depart_list.htm",
+                  datas:{
+                    "depart_id":$.session.get("departId")
+                   
+                 
+
+                    
+                  },
+                  success:function(data){
+                          
+                          if(data.status){
+                             
+                             for(var i=0;i<data.data.length;i++){
+                                   
+                                 company += ' <option value="'+data.data[i].id+'">'+data.data[i].departName+'</option>'
+                             } 
+                               
+                               $("#search").append(company); 
+                              
+                                
+                           }
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+   
+
+
+
+   })
+
+
+
+
+
+    $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy-mm', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+
+</script>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+   
+	<meta charset="UTF-8">
+	<title></title>
+   <meta name="screen-orientation" content="portrait">
+   <meta name="x5-orientation" content="portrait">
+   
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="css/homePage_Nav.css">
+    <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+	
+	<script src="js/jquery-2.2.1.js"></script>
+  <script type="text/javascript" src="js/jquerysession.js"></script>
+	<script type="text/javascript" src="css/layer/layer.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		 document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+	</script>
+ <style>
+
+    .nav{
+
+         position:relative;
+    }
+    .upper_part{
+
+       width:100%;
+    }
+
+
+    @media  (orientation: landscape){
+
+
+        .wrap{
+          margin-top:3.2rem;
+       }
+    }
+     @media  (orientation: portrait){
+
+
+        .wrap{
+          margin-top:8rem;
+       }
+    }
+
+    .layui-layer-title{
+         color:red;
+    }
+    .layui-layer-content{
+
+         text-align:center;
+         font-size:0.6rem;
+         line-height:2rem;
+    }
+    .red{
+         color:red;
+    }
+    .playUp{
+         font-size:1.5rem;
+         font-family:"黑体";
+    }
+    .layui-layer-btn{
+        text-align:center;
+    }
+    .layui-layer-btn .layui-layer-btn0{
+           width:2rem;
+    }
+ </style>
+</head>
+<body>
+
+
+
+         
+        <div class="upper_part">
+                  <div class="nav">  
+                   <div class="nav_title">
+                      <!--   <a href="javascript:void(0)" class="back">
+                            <img src="images/app_03.jpg"/>
+                      </a> -->
+                        <div class="title_name">首页导航</div>
+                        <a href="basicInfor.html" class="user_head">
+                              <img src="images/app_06.jpg"/>
+                        </a>
+                        <div style="clear:both"></div>
+
+                   </div>
+                  </div> 
+                 
+                 <!--  两个图片标签 防止以后 增加功能 -->
+               <div class="user_photo">
+                          <!--  相框 -->
+                     <img src="images/app_11.png" class="photo_border"/>
+                           <!--  用户图像 -->
+                     <img src="images/app_11.jpg" class="photo_core"/>
+               </div>
+               
+               <div class="balanceShow">
+                        <div class="balance">
+                             <a href="javascript:void(0)" class="myaccount">我的账户</a>
+                             <a href="javascript:void(0)" class="amountOfbalance" id="balance"></a>       
+                        </div>
+               </div>
+                
+        </div> 
+
+	      <div class="wrap">
+              
+
+               <div class="menu">
+                      
+
+                      <div class="menu_box none_topLeft">
+                          <a href="javascript:void(0)" id="f1">
+                             <img src="images/f1.jpg"/>
+                              <br/>单位价值表
+                          </a>
+                      </div>
+
+                       <div class="menu_box none-topRightleft">
+                          <a href="javascript:void(0)" id="f2">
+                             <img src="images/app_18.jpg"/>
+                             <br/>往来账户
+                          </a>
+                      </div>
+
+                       <div class="menu_box none_topLeft" >
+                          <a href="javascript:void(0)" id="f3">
+                             <img src="images/app_22.jpg"/>
+                             <br/>日记账
+                          </a>
+                      </div>
+
+                      <div class="menu_box none-topRightleft">
+                          <a href="javascript:void(0)" id="f4">
+                             <img src="images/app_23.jpg"/>
+                             <br/>成绩单
+                          </a>
+                      </div>
+
+                      <div class="menu_box none_topLeft" id="myAim">
+                          <a href="javascript:void(0)" id="f5">
+                             <img src="images/app_26.jpg"/>
+                             <br/>我的目标 
+                          </a>
+                      </div>
+
+                      <div class="menu_box none-topRightleft" id="empty">
+                          <!-- <a href="javascript:void(0)">
+                             <img src="images/app_15.jpg"/>
+                          </a> -->
+                      </div>
+
+                      <div style="clear:both"></div>
+               </div> 
+
+
+               <div class="bottom_menu">
+                     <a href="homePage_Nav.html">
+                           <img src="images/app_35.jpg"/>
+                           <br/>首页
+
+                     </a>
+                  <!--    <a href="javascript:void(0)">
+                        <img src="images/app_37.jpg"/>
+                        <br/>分类 
+                  </a>
+                  <a href="javascript:void(0)">
+                        <img src="images/app_32.jpg"/>
+                        <br/>关注
+                  </a> -->
+                     <a href="basicInfor.html" >
+                          <img src="images/app_29.jpg"/> 
+                          <br/>我
+                     </a>
+                     <div style="clear:both"></div>
+               </div>
+
+	      </div>
+  	
+	
+</body>
+</html>
+
+<script>
+           
+     var departHead=$.session.get("departHead"); 
+     var onceOFF= $.session.get("onceOFF");  
+      
+      $(document).ready(function(){
+          $(".title_name").css("left",($(".nav_title").width()-$(".title_name").width())/2);
+           //判断是不是部门负责人 如果是  我的目标显示
+           if(departHead=="false"){
+                  $("#myAim").hide();
+                  $("#empty").hide();
+           }
+       
+           var newDate=new Date();
+           var fullyear=newDate.getFullYear();
+           var fullmonth=newDate.getMonth(); 
+
+             if(fullmonth<9 ){
+                               fullmonth='0'+(fullmonth+1);
+                               $.session.set("datas",fullyear+'-'+fullmonth);
+                                
+                           }else if(fullmonth >=9) {
+                               
+                              fullmonth=fullmonth+1;
+                               $.session.set("datas",fullyear+'-'+fullmonth);
+                           }
+           /*$.session.set("datas",fullyear+'-'+fullmonth);*/
+           //账户余额
+                Datas({
+                  url:"mobile/deptmanager_info.htm",
+                  datas:{
+                    "userId":$.session.get("userid"),
+                  
+                 
+
+                    
+                  },
+                  success:function(data){
+                          
+                 if(data.status){
+
+                      
+                       $("#balance").text("￥"+data.data.balance);
+                       if(data.data.isAlert==true && onceOFF=='true'){
+                                                       
+                             
+                             var str1="您的账户可用余额为<b class='red'>"+data.data.balance+"</b>元<br/><b class='playUp'>加油</b>";
+                              layer.open({
+                                    type: 1,
+                                    title :'温馨提示',
+                                    area: ['14.8rem', '10rem'],
+                                    closeBtn: 0,
+                                    content: str1,
+                                    btn: ['确定'],btn2:function(){
+                                                
+                                       }
+                                    
+                                     })
+                                             
+                                    $(".layui-layer").css({"font-size":"0.35rem"});
+                                    $.session.set("onceOFF",false);       
+                                          
+                               }
+                               
+                              
+                                
+                           }
+
+                  },
+                  error:function(){
+                      
+
+                  }
+
+                })
+
+      })
+
+
+
+
+    
+    //点击图片反色
+      $("#f1").click(function(){
+
+             $("#f1 img").attr("src","images/app_15.jpg");
+           setTimeout(function(){
+           
+             window.location.href="valueTable.html";
+           },300);
+        
+      })
+
+      $("#f2").click(function(){
+
+        
+            $("#f2 img").attr("src","images/f2.jpg");
+          setTimeout(function(){
+           
+             window.location.href="accountRecord.html";
+           },300);
+      })
+
+      $("#f3").click(function(){
+
+             $("#f3 img").attr("src","images/f3.jpg");
+          setTimeout(function(){
+            
+             window.location.href="Daily.html";
+           },300);
+      })
+
+      $("#f4").click(function(){
+
+             $("#f4 img").attr("src","images/f4.jpg");
+          setTimeout(function(){
+            
+             window.location.href="credit_List.html";
+           },300);
+      })
+
+      $("#f5").click(function(){
+
+           $("#f5 img").attr("src","images/f5.jpg");
+          setTimeout(function(){
+               
+              window.location.href="MyTarget.html";
+           },300);
+      })
+
+   
+   
+    
+</script>

@@ -1,0 +1,282 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0; }
+
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  /*使用无衬线字体*/ }
+
+a, img {
+  -webkit-touch-callout: none;
+  /*禁止长按链接与图片弹出菜单*/ }
+
+
+
+button,  optgroup, select, textarea {
+  -webkit-appearance: none;
+  /*去掉webkit默认的表单样式*/ }
+
+a, button,  optgroup, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/ }
+
+
+
+body {
+  -webkit-text-size-adjust: 100% !important;
+  /*禁止IOS调整字体大小*/ }
+
+input::-webkit-input-speech-button {
+  display: none;
+  /*隐藏Android的语音输入按钮*/ }
+
+a {
+  text-decoration: none; }
+body{
+	   background:#f5f5f5;
+}
+
+
+
+
+ 
+
+
+
+
+
+
+   .wrap{
+	   width:100%;
+	 
+	   background:#1e81d2;
+	   position:relative;
+	   z-index:10;
+
+}
+
+
+
+.upper_part{
+	position:fixed;
+	top:0;
+	z-index:10000000;
+	left:0;
+}
+
+
+
+/* .nav_title{
+	   width:100%;
+	   height:0.8rem;
+	   margin:0 auto;
+	   position:relative;
+	   text-align:center;
+	   padding-top:1.75rem; 
+
+}
+.nav_title a{ 
+      display:block;
+      height:0.8rem;
+      width:0.8rem;
+
+}
+.nav_title a img{
+	   height:0.8rem;
+	   width:0.8rem;
+}
+.back{
+	float:left;
+
+}
+.user_head{
+	  float:right;
+}
+.title_name{
+	    width:30%;
+        text-align:center;
+        height:0.8rem;
+        position:absolute;
+       
+        font-size:0.8rem;
+        color:white;
+        font-family:"黑体";
+
+} */
+
+
+@media  (orientation: portrait){
+.user_photo{
+	     height:4.225rem;
+	     width:3.775rem;
+	     margin:0 auto;
+	     position:relative;
+	     text-align:center;
+	
+
+
+}
+}
+@media  (orientation: landscape){
+       .user_photo{
+	     height:1.225rem;
+	     width:1rem;
+	     margin:0 auto;
+	     position:relative;
+	     text-align:center;
+	
+
+
+}
+
+
+}
+
+
+
+@media  (orientation: landscape){
+
+           .photo_border{
+
+	    width:1rem;
+	    height:1.225rem;
+	    position:absolute;
+        left:0px;
+        top:0px;
+        z-index:10;
+
+}
+
+
+
+}
+
+
+
+
+@media  (orientation: portrait){
+	.photo_border{
+
+	    width:3.775rem;
+	    height:4.225rem;
+	    position:absolute;
+        left:0px;
+        top:0px;
+        z-index:10;
+
+}
+}
+
+
+
+@media  (orientation: landscape){
+        .photo_core{
+	    width:1rem;
+	    height:1.225rem;
+	    position:absolute;
+	    left:0px;
+	    top:0px;
+	    z-index:1;
+}
+
+
+
+}
+
+
+@media  (orientation: portrait){
+.photo_core{
+	    width:3.775rem;
+	    height:4.225rem;
+	    position:absolute;
+	    left:0px;
+	    top:0px;
+	    z-index:1;
+}
+}
+
+
+@media  (orientation: portrait){
+.balanceShow{
+	 width:100%; 
+	 height:0.5rem;
+	 margin-top:0.5rem;
+	 margin-bottom:0.5rem;
+}
+}
+
+@media  (orientation: landscape){
+.balanceShow{
+	 width:100%; 
+	 height:0.5rem;
+	 margin-top:0.2rem;
+	 margin-bottom:0.2rem;
+}
+}
+
+.balance{
+	   width:15rem;
+	   height:0.5rem;
+	   margin:0 auto;
+	   position:relative;
+	   text-align:center;
+	   line-height:0.5rem;
+}
+.balance a{
+	    font-size:0.8rem;
+	    display:inline-block;
+	    font-family:"黑体";
+	    color:white;
+}
+.balance .myaccount{
+	   padding-left:0.8rem;
+	   background:url(../images/app_06.jpg) no-repeat left center;
+	   background-size:contain;
+}
+.menu{
+	   width:100%;
+	     background:#f5f5f5;
+	 padding-bottom:3rem; 
+}
+.menu_box a{
+      display:block;
+      margin-top:0.375rem;
+}
+
+.menu_box a img{
+
+	width:3.1rem;
+	height:3.45rem;
+}
+.upper_part{
+         background:#1e81d2;
+}
+.menu_box{
+	   width:50%;
+	   height:5.275rem;
+	   border:1px solid #c8c8c8;
+	   box-sizing:border-box;
+	   text-align:center;
+	   float:left;
+}
+.menu_box a{
+	   font-size:0.7rem;
+	   color:black;
+}
+
+.none_topLeft{
+	    border-top:none;
+	    border-left:none;
+}
+
+.none-topRightleft{
+	     border-left:none;
+	     border-right:none;
+	     border-top:none;
+}
+
+

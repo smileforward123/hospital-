@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <title></title>
+        <link href="css/clear.css" rel="stylesheet">
+        <link href="css/CREIDTLIST.css" rel="stylesheet"/>
+        <link href="css/mobiscroll.css" rel="stylesheet" />
+        <link href="css/mobiscroll_date.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/layer/skin/layer.css">
+    
+    </head>
+    <script>
+         document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+    </script>
+    <style>
+            .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+				            border-bottom:2px solid #1e81d2;
+				            background:#1e81d2;
+           }
+           #notice{
+           	   width:100%;
+           	   font-size:1rem;
+           	   text-align:center;
+           }
+    </style>
+    
+    <script src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script type="text/javascript" src="css/layer/layer.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/echarts.js"></script>
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+    <script src="js/common.js"></script>
+    
+    <body>
+        <header id="header" class="clear">
+            <a class="back" href="homePage_Nav.html"> <img src="images/app_03.jpg"/></a>
+            <h3 class="pageTitle">
+                
+            </h3>
+            <a class="logo" href="basicInfor.html"><img src="images/app_06.jpg"></a>
+            
+        </header>
+        <div class="scroll" style="width:115%">
+           <div class="searchNav">
+                <input type="text" value=""  id="chooseDate"/>
+           <input type="button" name="" value="查询" onclick="gets();getData()" id="searchBtn"> 
+           </div>
+           
+             <div id="table" style="height:20rem;width:115%">
+               
+             </div>
+           
+           <div class="departTop">
+                 <div id="notice" style="display:none">
+                   <img src='images/noData.jpg' class='nomore' />
+                   <span class='more' style='height:0.9rem'>暂无数据</span>
+                 </div>  
+
+                 <div class="heads">
+                     <img src="images/bars.jpg"/>
+                     部门(累计)排名
+                 </div>
+                 
+                 <table width="100%" id="tops" cellspacing="0">
+                    <!--  <tr>
+                        <td width="10%">01、</td>
+                        <td align="right">
+                             <span>量子部</span>
+                            <span class="sameColor">/</span>
+                            <span class="sameColor">90分</span>
+                        </td>
+                    </tr> -->
+
+                   
+
+                 </table>
+
+
+           </div>
+          
+        </div>
+        <script>
+           var dates="";
+           var depart=[];
+           var score=[];
+           var curDepId=[];
+           var curDepName=[];
+           var topList='';
+           var serialNo=1;
+           var data='';
+           /*var newDate=new Date();
+           var fullyear=newDate.getFullYear();
+                 var fullmonth=newDate.getMonth();*/
+           $("#chooseDate").val($.session.get("datas"));
+                    
+
+       
+          
+
+             
+          
+
+           $(document).ready(function(){
+                  
+                 
+                
+
+
+                if($.session.get("datas")!=undefined || $.session.get("datas")!=null){
+                         $("#chooseDate").val($.session.get("datas"));
+                           getData(); 
+                }
+
+
+           })
+          
+           
+                  
+
+              
+                function gets(){
+
+                     
+                           $.session.set("datas",$("#chooseDate").val());
+                              $("#chooseDate").val($.session.get("datas"));
+                                
+                              
+                                     window.location.href='credit_List.html';
+
+                      }
+             
+
+               function eConsole(param) {
+				        var mes = '【' + param.type + '】';
+			           if (typeof param.seriesIndex != 'undefined') {
+				          mes += '  seriesIndex : ' + param.seriesIndex;
+						       mes += '  dataIndex : ' + param.dataIndex;
+							 }
+									$.session.set('credit_DATE',$("#chooseDate").val());
+                  																	                //存储当前ID
+				           $.session.set('curDepId',curDepId[param.dataIndex]);
+                    $.session.set('curDepName',curDepName[param.dataIndex]);
+		                 window.location.href="credit_list_table.html";
+														           
+				 };
+
+
+            function getData(){
+                        
+                  depart=[];
+                   score=[];
+                  
+                 if(!$.session.get("datas")){
+
+                 
+                     return; 
+                 }else{
+                 	        $("#chooseDate").val($.session.get("datas"));
+				           var  dates= $("#chooseDate").val().split("-");
+                
+				             Datas({
+				                  url:"mobile/monthReport.htm",
+				                  datas:{
+				                    "year":dates[0],
+				                    "month":dates[1],
+				                    "userId":$.session.get("userid")
+				                 
+
+				                    
+				                  },
+				                  success:function(data){
+				                       
+                            
+				                          if(data.status){
+				                              
+                                     $(".pageTitle").text(dates[0]+"年"+dates[1]+"月成绩单");
+
+				                             if(!data.data){
+
+				                             
+				                             
+
+                                                  layer.msg(dates[0]+"年"+dates[1]+"月暂无数据");
+                                                    
+                                                     
+                                                          $("#notice").show();
+                                                                 $(".heads").hide();   
+                                                                   $("#tops").hide(); 
+                                                     return;
+				                                 }else if( $("#notice")){
+                                                           $("#notice").hide();
+                                                               $("#tops").show();
+                                                                  $(".heads").show();   
+
+				                                 };
+                                         
+                                       
+                                             
+                                         
+				                                 
+				                                 for(i=0;i<data.data.length;i++){
+                                                    depart.push(data.data[i].deptName);
+                                                      score.push(data.data[i].score);
+                                                        curDepId.push(data.data[i].deptId);
+                                                          curDepName.push(data.data[i].deptName);
+                                                          topList +=  '<tr>'+
+                        													                       ' <td width="10%">'+parseInt(i+1)+'、</td>'+
+                        													                       ' <td align="right">'+
+                        													                           ' <span>'+data.data[i].deptName+'</span>'+
+                        													                          '  <span class="sameColor">/</span>'+
+                        													                            '<span class="sameColor">'+data.data[i].score+'分</span>'+
+                        													                       ' </td>'+
+                        													                   ' </tr> '; 
+				                                       }
+                                                             
+                                                          
+                                                              if($("#tops tr")){
+                                                              	  $("#tops tr").remove();
+                                                              }
+                                                              $("#tops").append(topList);
+                                                               
+
+														           require.config({
+														                paths: {
+														                    echarts: 'js/dist'
+														                }
+														            }); 
+														            require(
+														            [
+														                'echarts',
+														                'echarts/chart/bar' ,
+														                'echarts/chart/line' 
+														            ],
+														            function (ec) {
+														             
+														                var myChart = ec.init(document.getElementById('table'),'macarons'); 
+														                   
+														                var option = {
+														                   
+														                    legend: {
+														                        show:false,
+														                        data:['分']
+														                    },
+														                     xAxis : [
+														                        {
+														                            type : 'category',
+														                            data : depart,
+														                            axisLabel:{ 
+														                                    interval:0,
+														                                   
+														                                    margin:2,
+														                                    formatter:function(val){
+														                                         return val.split("").join("\n");
+														                                    },
+                                                                textStyle:{
+                                                          /* color:"", //刻度颜色*/
+                                                           fontSize:16.5  //刻度大小
+                                                      },
+														                     },
+														                            
+														                        }
+														                    ],
+                                                grid: { // 控制图的大小，调整下面这些值就可以，
+                                                                x:65,
+                                                               x2: 120,
+                                                                y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+                                                   },
+														                    yAxis : [
+														                        {
+														                            type : 'value',
+														                            
+														                        }
+														                    ],
+														                    toolbox: {
+														                        show : false,
+														                        feature : {
+														                            mark : {show: false},
+														                            dataView : {readOnly:false},
+														                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+														                            restore : {show: false},
+														                            saveAsImage : {show: false}
+														                        }
+														                    },
+														                    
+
+														                    series : [
+														                        {
+														                            "name":"分",
+														                            "type":"bar",
+														                            "data":score,
+														                            "barWidth":10,
+														                            itemStyle:{
+																				       normal:{
+																				         color:'#00a0e9',
+																				         }
+																				  },
+														                         
+														                            
+														                            
+														                        }
+														                    ]
+														                };
+														        
+														                // 为echarts对象加载数据 
+														                  myChart.setOption(option); 
+
+                                                                            
+                                                                           myChart.on(ecConfig.EVENT.CLICK, eConsole);
+
+                                                                           
+														            }
+														        );
+
+                                                                 
+														        var ecConfig = require('echarts/config');
+														        
+                                                               
+
+				                                  
+				                           }else{
+				                            layer.msg(data.message);  
+				                          }
+
+				                  },
+				                  error:function(){
+				                       layer.msg('服务器异常，请联系管理员');
+				                  }
+
+				                })
+
+
+
+                 }
+
+
+
+            }
+
+         
+            
+
+
+           
+
+            
+        
+
+
+
+
+
+        $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy-mm', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+   
+
+   
+
+
+      
+        </script>
+    </body>
+</html>

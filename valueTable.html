@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta id="meta" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"> 
+        <title></title>
+        <link href="css/clear.css" rel="stylesheet">
+        <link href="css/valueTable.css" rel="stylesheet"/>
+        <link href="css/mobiscroll.css" rel="stylesheet" />
+        <link href="css/mobiscroll_date.css" rel="stylesheet" />
+    </head>
+    <script>
+         document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";
+    </script>
+    <style>
+       .project{
+
+           padding-left:0.2rem;
+       }
+        .project span{
+          display:none;
+
+      } 
+      .scroll{
+          padding-bottom:3rem;
+      }
+
+      .sub{
+            
+         text-indent:0.2rem;
+      }
+      .sub_sub{
+
+           text-indent:0.5rem;
+      }
+
+      #header{
+
+           text-align:center;
+      }
+
+    @media  (orientation: landscape){
+
+          #header{
+
+           text-align:center;
+      }
+    }
+
+    #chooseDate{
+
+    width: 5rem;
+    height: 1.29rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-top: -0.3rem;
+    font-size:0.7rem;
+    }
+
+       .dwrc table  tr td:last-child{
+
+               display:none;
+           }
+
+           .android-ics .dwv{
+
+            border-bottom:2px solid #1e81d2;
+            background:#1e81d2;
+           }
+
+               @media  (orientation: portrait){
+
+                       #header{
+
+                              text-align:center;
+                }
+            }
+
+    </style>
+    <script src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/jquerysession.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
+    <script src="js/common.js"></script>
+    <body>
+         <header id="header" class="clear">
+            <a class="back" href="homePage_Nav.html"> <img src="images/app_03.jpg"/></a>
+         
+                单位价值表
+          
+            <a class="logo" href="basicInfor.html"><img src="images/app_06.jpg"></a>
+
+        </header>
+        <div class="scroll">
+            <nav class="nav">
+                <a  class="active" href="javascript:void(0)">单位价值表</a><a  href="profitTable.html">利润分析</a>
+            </nav>
+            <div class="searchNav">
+
+                <select id="company">
+                  
+                </select>
+                <input type="text" value="" id="chooseDate"/> 
+                
+            </div>
+            <table class="tableBox">
+                <thead>
+                    <tr> 
+                        <th width="40%">项目</th>
+                        <th width="20%">代码</th>
+                        <th width="20%">金额</th>
+                        <th width="20%">占比</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                  <!--   <tr>
+                      <td class="project">总收入<span></span></td>
+                      <td>A</td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                       <td class="project">外部收入<span></span></td>
+                      <td>A1</td>
+                      <td></td>
+                      <td></td>
+                  </tr> -->
+
+                 
+                    
+                    
+                </tbody>
+            </table>
+          
+        </div>
+        <script>
+              $(document).ready(function(){
+
+                           var newDate=new Date();
+                           var fullyear=newDate.getFullYear();
+                           var fullmonth=newDate.getMonth();
+
+                           if(fullmonth<9 ){
+                               fullmonth='0'+(fullmonth+1);
+                               $("#chooseDate").val(fullyear+'-'+fullmonth);
+                                
+                           }else if(fullmonth >=9) {
+                               
+                              fullmonth=fullmonth+1;
+                              $("#chooseDate").val(fullyear+'-'+fullmonth);
+                           }
+
+
+                         
+
+                           
+                           
+
+
+
+                          
+           })
+
+         
+
+
+
+           $(document).ready(function(){
+         
+              var company='';
+               $.session.set("depar",'');
+              $("#company").change(function(){
+
+
+                   $.session.set("depar",$(this).val());
+
+                     getAll();
+                  
+              })
+               
+
+
+
+                  Datas({
+                  url:"mobile/depart_list.htm",
+                  datas:{
+                    "depart_id":$.session.get("departId")
+                   
+                 
+
+                    
+                  },
+                  success:function(data){
+                          
+                          if(data.status){
+                             
+                             for(var i=0;i<data.data.length;i++){
+                                   
+                                 company += ' <option value="'+data.data[i].id+'">'+data.data[i].departName+'</option>'
+                             } 
+                               
+                               $("#company").append(company); 
+                              
+                                
+                           }
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+
+          getAll();
+
+           $("#chooseDate").change(function(){
+
+                               getAll();
+                  
+          });
+
+              
+
+              
+
+
+   function getAll(){
+
+                Datas({
+                    url:"mobile/cate_report.htm",
+                    datas:{
+                     "depart_id": $.session.get("depar") || $.session.get("departId"),
+                     "report_time":$("#chooseDate").val(),
+                     "cate_code":""
+                       
+                    },
+                    success:function(data){
+                     
+                        var str="";
+                        if(data.status){
+                             
+                            for(var i=0;i<data.data.length;i++){
+                                            
+                                 if(data.data[i].hasChildren){
+                                               
+                           
+                                        
+
+                                       str+='<tr id="'+data.data[i].id+'" class="items" title="'+data.data[i].cate_code+'"  status='+data.data[i].hasChildren+' percent='+data.data[i].percent+'>'+
+                                            '<td class="project most" onclick="hasSon($(this))" align="left">'+data.data[i].cate_name+'<span style="display:inline-block"></span></td>'+
+                                            '<td>'+data.data[i].cate_code+'</td>'+
+                                            '<td>'+data.data[i].amont+'</td>'+
+                                            '<td class="percent">'+data.data[i].percent+'</td>'+
+                                            '</tr>';
+                                        
+                                       }else{
+
+                                               str+='<tr id="'+data.data[i].id+'" class="items" title="'+data.data[i].cate_code+'" status='+data.data[i].hasChildren+' percent='+data.data[i].percent+'>'+
+                                                    '<td class="project most"  align="left">'+data.data[i].cate_name+'</td>'+
+                                                    '<td>'+data.data[i].cate_code+'</td>'+
+                                                    '<td>'+data.data[i].amont+'</td>'+
+                                                    '<td class="percent">'+data.data[i].percent+'</td>'+
+                                                    '</tr>';
+                                       }
+                            }
+                          
+                            
+                             
+
+                        }
+                        $(".tbody").html(str);
+                        $(".tableBox tr").each(function(index,item){
+                         
+                         
+                            if(($(this).attr("percent")=="undefined")){
+                                $(this).find(".percent").hide();
+                            }
+                         /*   if($(this).attr("status")=="true"){
+                               
+                               
+                                $(this).find(".project").find("span").css("display","inline-block");
+                            }else{
+                              
+                                $(this).find(".project").find("span").css("display","none");
+                            }*/
+
+
+
+                        })
+
+                    },
+                    error:function(){
+
+                    }
+
+
+
+
+                })
+            };
+
+            })
+       //二级
+       
+       var pId='';
+       function hasSon(hasChild){
+               
+               var parent=hasChild.parent().attr("title");
+               pId=hasChild.parent().attr("id");
+
+               var str1='';
+                if(hasChild.parent().next().hasClass("subClass"+pId)){
+                             $("tr[class$='"+pId+"']").remove(); 
+                                return;
+                 }
+             
+              
+               Datas({
+                  url:"mobile/cate_report.htm",
+                  datas:{
+                     "depart_id":$.session.get("depar") || $.session.get("departId"),
+                     "report_time":$("#chooseDate").val(),
+                     "cate_code": hasChild.parent().attr('title')
+                 
+
+                    
+                  },
+                  success:function(data){
+                      
+                          if(data.status){
+                                 
+                                
+                                 for(var i=0;i<data.data.length;i++){
+                                      if(data.data[i].hasChildren){
+                                       
+                                       str1+='<tr  title="'+data.data[i].cate_code+'" id="'+data.data[i].id+'" class="'+'subClass'+hasChild.parent().attr("id")+'"  percent='+data.data[i].percent+'>'+
+                                            '<td class="project sub" onclick="grandson($(this))" align="left">'+data.data[i].cate_name+'<span style="display:inline-block"></span></td>'+
+                                            '<td>'+data.data[i].cate_code+'</td>'+
+                                            '<td>'+data.data[i].amont+'</td>'+
+                                            '<td class="percent">'+data.data[i].percent+'</td>'+
+                                            '</tr>';
+                                        }else{
+
+                                               str1+='<tr title="'+data.data[i].cate_code+'" id="'+data.data[i].id+'" class="'+'subClass'+hasChild.parent().attr("id")+'" percent='+data.data[i].percent+'>'+
+                                                    '<td class="project sub"  align="left">'+data.data[i].cate_name+'</td>'+
+                                                    '<td>'+data.data[i].cate_code+'</td>'+
+                                                    '<td>'+data.data[i].amont+'</td>'+
+                                                    '<td class="percent">'+data.data[i].percent+'</td>'+
+                                                    '</tr>';
+
+                                        }
+
+                                  
+                                        
+                                              
+
+                                   
+
+                                 }
+                                        
+                                $(".tableBox").append(str1); 
+                                 $('.'+'subClass'+hasChild.parent().attr("id")).insertAfter(hasChild.parent());
+                                    hasChild.parent().addClass("clicked");
+                               
+
+
+                          }
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+
+
+             
+       } 
+
+
+
+       //三级
+      var three='';
+    
+       function grandson(hasChild){
+               three =hasChild.parent().attr("id");
+                if(hasChild.parent().next().hasClass("subClasss"+three+"ssssss")){
+                       
+                         $(".final"+three).remove();
+                        
+                       
+                        
+                         return;
+                 }
+              
+               
+                var parent=hasChild.parent().attr("title");
+              
+               var str1='';
+                 
+                 
+               
+              
+               Datas({
+                  url:"mobile/cate_report.htm",
+                  datas:{
+                     "depart_id":$.session.get("depar") || $.session.get("departId"),
+                     "report_time":$("#chooseDate").val(),
+                     "cate_code": hasChild.parent().attr('title')
+                 
+
+                    
+                  },
+                  success:function(data){
+                      
+                          if(data.status){
+                                 
+                                
+                                 for(var i=0;i<data.data.length;i++){
+                                    
+                                       
+                                      
+
+                            str1+='<tr title="'+data.data[i].cate_code+'"   class="'+'final'+three+'   '+'subClasss'+three+'ssssss'+'   '+'subClass'+pId+'" percent='+data.data[i].percent+'>'+
+                                     '<td class="project sub_sub"  align="left">'+data.data[i].cate_name+'</td>'+
+                                     '<td>'+data.data[i].cate_code+'</td>'+
+                                     '<td>'+data.data[i].amont+'</td>'+
+                                     '<td class="percent">'+data.data[i].percent+'</td>'+
+                                 '</tr>';
+
+                                       
+
+                                  
+                                        
+                                              
+
+                                   
+
+                                 }
+                                        
+                                $(".tableBox").append(str1); 
+                                 $('.'+'subClasss'+three+'ssssss').insertAfter(hasChild.parent());
+                                  
+                             
+
+                          }
+                  },
+                  error:function(){
+                       layer.msg('服务器异常，请联系管理员');
+                  }
+
+                })
+       }
+
+
+
+    
+
+
+
+       $(function () {
+
+               var currYear = (new Date()).getFullYear();
+              var opt_data = {
+              preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+              theme: 'android-ics light', //皮肤样式
+              display: 'bubble', //显示方式
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yy-mm', // 日期格式
+              //确认按钮名称
+              cancelText: '取消',
+                 setText: '确定',
+              //取消按钮名籍我
+              dateOrder: 'yymmdd', //面板中日期排列格式
+              dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+              yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+              endYear:currYear, //结束年份
+              showNow:false,
+              nowText:false,
+              hourText:'小时',
+              minuteText:'分'
+          };
+                
+                $("#chooseDate").mobiscroll(opt_data);
+                 
+                
+        });
+
+        </script>
+    </body>
+</html>

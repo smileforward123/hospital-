@@ -1,0 +1,118 @@
+@charset "UTF-8";
+#header{
+     width:100%;
+    background:#1e81d2;
+    height:2.2rem;
+    line-height:2.2rem ;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:10000;
+    color:#fff;
+    font-size: 0.65rem;
+}
+#header  img{
+     height: 0.8rem;
+    width: 0.8rem;
+}
+.back{
+    float: left;
+    height: 0.8rem;
+    width: 0.8rem;
+    vertical-align: middle;
+    margin-left:0.7rem ;
+    margin-top: 0.7rem;
+}
+
+.pageTitle{
+    float: left;
+    margin-left:5rem ;
+}
+.logo{
+    float: right;
+     height: 0.8rem;
+    width: 0.8rem;
+     vertical-align: middle;
+      margin-top: 0.7rem;
+      margin-right: 0.9rem;
+}
+.scroll{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 2.2rem;
+    overflow: auto;
+    box-sizing: border-box;
+    bottom:0;
+   
+}
+.nav{
+    height:1.5rem;
+    line-height:1.5rem;
+    background:#1e82d2;
+    font-size:0.9rem;
+    border-bottom: 2px solid #c2c2c2;
+
+
+}
+.nav a{
+    float: left;
+    width:50%;
+    color:#eff0f0;
+    text-align: center;
+}
+.nav .active{
+    border-bottom:2px solid #02e8fe;
+}
+.searchNav{
+    background:#fafafa;
+    height:2rem;
+    line-height: 2rem;
+    width:100%;
+    text-align: center;
+}
+.searchNav select{
+    width:auto;
+    height:1.4rem;
+   /*  line-height:1rem; */
+     border: solid 1px #ccc;
+     text-indent: 0.2rem;
+ appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background: url("../images/arrow.png") no-repeat scroll right center transparent;
+  padding-right: 0.35rem;
+  font-size:0.7rem;
+}
+table{
+    width:100%;
+   
+   
+
+}
+thead{
+    height:0.9rem;
+    border:1px solid #d3d3d3;
+    color:#333333;
+    background:linear-gradient(180deg,#ffffff,#f0f0f0);
+}
+thead th{
+    border-right: 1px solid #dadada;
+}
+table tr{
+    font-size:0.6rem ;
+    height:1.2rem;
+    line-height: 0.9rem;
+    color:#3b3b3b;
+    text-align: center;
+}
+table th{
+    font-weight:bold;
+}
+.project span{
+    width:0.475rem;
+    height:0.325rem;
+    display:inline-block;
+    background:url(../images/downArrow.png) no-repeat right;
+    background-size: contain;
+}
